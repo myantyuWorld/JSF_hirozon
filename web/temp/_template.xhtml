@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <link rel="shortcut icon"  type="image/x-icon" href="../img/newlogo2_back_stealth.png" />
+        <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"/>
+        <link rel="stylesheet" href="../css\reset.css"/>
+        <link rel="stylesheet" href="../css\common.css"/>
+        <link rel="stylesheet" href="../css\mypage.css"/>
+        <link rel="stylesheet" href="../css\top.css"/>
+        <link rel="stylesheet" href="../css\history.css"/>
+        <link rel="stylesheet" href="../css\cart.css"/>
+        <link rel="stylesheet" href="../css\detail.css"/>
+        <link rel="stylesheet" href="../css\mypage.css"/>
+        <link rel="stylesheet" href="../css\font-awesome.min.css"/>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <script src="../js/__member.js"/>
+        <!--<link rel="stylesheet" href="../css/simple-sidebar.css"/>-->
+        <!--        <link rel="stylesheet" href="../css/bootstrap-grid.css"/>
+                <link rel="stylesheet" href="../css/bootstrap-grid.min.css"/>
+                <link rel="stylesheet" href="../css/bootstrap-reboot.css"/>
+                <link rel="stylesheet" href="../css/bootstrap.min.css"/>-->
+        <link rel="stylesheet" href="../css/__member.css"/>
+        <link rel="stylesheet" href="../css/mycss.css"/>
+        <script src="https://use.fontawesome.com/469d90b81f.js"></script>
+    </h:head>
+    <h:body>
+        <div>
+            <ui:insert name ="top">
+                <ui:include src ="_header.xhtml" />
+            </ui:insert>
+            <ui:insert name ="content" />
+            <ui:insert name ="bottom">
+                <ui:include src ="_footer.xhtml" />
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+
+<!--
+テンプレートの利用法
+<ui:composition template="/temp/_template.xhtml">
+    <ui:define name ="content">
+        ＃ここに実装
+    </ui:define>
+</ui:composition>
+
+# モーダルダイアログのやり方
+<div class="add-wrap">
+    <p:commandButton class="add-button" value="登録" type="button" onclick="PF('dlg2').show();" />
+</div>
+<p:dialog class="modal-title" header="確認" widgetVar="dlg2" modal="true" height="200">
+    <div class="modal-dialog">
+         Modal content
+        <div class="modal-header">
+            <h3 class="modal-title">新規登録しますか？</h3>
+        </div>
+        <div class="modal-footer">
+            <h:commandButton class="btn btn-primary" value="  OK  " action="#｛｝/>
+            <h:commandButton class="btn" value="キャンセル" action="#"/>
+        </div>
+    </div>
+</p:dialog>
+end dialog
+
+
+
+-->
+

@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>ID を忘れた方へ</title>
+        <!--<link rel="stylesheet" href="css/account.css"/>-->
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css/reminder.css"/>
+        <link rel="stylesheet" href="css/mycss.css"/>
+
+    </h:head>
+    <h:body>
+        <div class="container" >
+            <h1>Hirozon</h1>
+            <div class="midashi" >
+                パスワードを忘れた方へ
+            </div>
+            <h:form>
+
+                <div class="contents">
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2">UserID</label>
+                            <div class="col-sm-8">
+                                <h:inputText class="form-control" value="#{userBean.u_Id}" pt:placeholder="ログインに使用するIDを入力..."/>
+                            </div>
+                        </div>
+                        <div class="col-sm-5">
+                            <p:commandButton class="btn btn-danger" value="確認" 
+                                             actionListener="#{userBean.handlePassReminder}" 
+                                             oncomplete="handleRequest(xhr, status, args);"/>
+                        </div>
+                    </div>
+                </div>
+            </h:form>
+            <p:dialog class="modal-title"  id="dlg" header="確認" widgetVar="dlg" modal="true" height="300">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-header">
+                        <h3 class="modal-title">生成したパスワード</h3>
+                    </div>
+                    あなたの新しいパスワードは<br/>
+                    "<h:outputLabel value="#{userBean.u_pass}"/>" です！
+                    <div class="modal-footer">
+                        <h:form>
+                            <h:commandButton class="btn" value="OK" action="index.xhtml?faces-redirect=true"/>
+                        </h:form>
+                    </div>
+                </div>
+            </p:dialog>
+        </div>
+    </h:body>
+    <script>
+        function handleRequest(xhr, status, args) {
+            console.log("call function handleRequest(xhr, status, args)");
+            if (args === null) {
+                return;
+            }
+            if (args.showFlag) {
+                PF('dlg').show();
+            } else {
+//                PF('dlg').show();
+            }
+        }
+        ;
+    </script>
+</html>
+

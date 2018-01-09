@@ -1,0 +1,186 @@
+.his_main-contents {
+  position: relative;
+  top: 100px;
+  margin-bottom: 80px;
+}
+
+.his_contents-header {
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+.his_contents-title {
+  font-size: 30px;
+}
+
+.his_contents-header__r {
+  align-items: center;
+}
+
+.his_contents-box {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.his_box-header {
+  padding-left: 10px;
+  background-color: #ddd;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 1px solid #ccc;
+}
+
+.his_header-item__list {
+  padding-top: 10px;
+  margin-bottom: 10px;
+}
+
+.his_purchase-btn {
+  font-size: 15px;
+  display: inline-block;
+  padding: 0.5em 2em;
+  text-decoration: none;
+  color: #3366ff;
+  border: solid 2px #3366ff;
+  border-radius: 3px;
+  transition: 0.4s;
+}
+
+.his_purchase-btn:hover {
+  background: #aaaaff;
+  color: black;
+}
+
+.his_detail-wrap {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  align-items: center;
+}
+
+.his_history-search__item {
+  border: 1px solid #ddd;
+  padding-left: 5px;
+  border-radius: 5px;
+}
+
+.his_history-search__text {
+  border: none;
+}
+
+.his_history-search__text:focus {
+  outline: none;
+}
+
+.his_history-search__block {}
+
+.his_history-search__text {
+  margin: 5px;
+  padding: 5px;
+  font-size: 15px;
+}
+
+.history-search__btn {
+  background-color: #a9a9a9;
+  padding: 8px 13px;
+  border-radius: 3px;
+}
+
+/* 検索期間の色変えたいならここ */
+
+.his_search-period {
+  border: 1px solid #a9a9a9;
+  background-color: #ddd;
+}
+
+.his_search-period:hover {
+  background-color: #fff;
+  transition: 0.3s;
+}
+
+.his_search-period:focus {
+  outline: 1px solid #ddd;
+}
+
+@media (min-width: 768px) {
+  .his_main-contents {
+    max-width: 1000px;
+    margin-bottom: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    min-height: calc(100vh - 304px);
+  }
+  .his_contents-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+  .his_box-header {
+    display: flex;
+    justify-content: space-between;
+  }
+  .his_header-item__l {
+    display: flex;
+    margin: 10px;
+  }
+  .his_header-item__r {
+    margin: 10px;
+  }
+  .his_header-item__list {
+    padding-left: 15px;
+    padding-right: 20px;
+  }
+  .his_detail-wrap {
+    display: flex;
+  }
+  .his_history-search__block {
+    display: flex;
+  }
+  .his_history-search__item {
+    margin-right: 10px;
+  }
+  .his_detail-item:not(.purchase-btn__box) {
+    margin-left: 30px;
+  }
+  .his_pro-img__box {
+    flex: 25%;
+  }
+  .his_pro-name__box {
+    flex: 40%;
+  }
+  .his_pro-value__box {
+    flex: 10px;
+  }
+  .his_purchase-btn__box {
+    flex: 25%;
+    text-align: center;
+  }
+  .his_contents-header__r {
+    display: flex;
+  }
+  .his_search-period__box {
+    margin-left: 10px;
+  }
+}
+
+@media (max-width:767px) {
+  .his_main-contents {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+  .his_contents-title {
+    text-align: center;
+  }
+  .his_detail-item:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  .his_search-btn__box {
+    text-align: right;
+    margin-top: 5px;
+  }
+  .his_search-period__box {
+    margin-bottom: 5px;
+  }
+}

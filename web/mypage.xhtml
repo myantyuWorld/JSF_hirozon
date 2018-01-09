@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/temp/_template.xhtml">
+            <ui:define name ="content">
+                <!--＃ここに実装-->
+                <div class="main">
+                    <h1 class="page-title">アカウントメニュー</h1>
+                    <div class="main-contents">
+                        <div class="main-box">
+                            <div class="main-box__head">
+                                <span class="menu-icon fa fa-history fa-5x" style="color: royalblue"></span>
+                                <h2 class="main-box__head__title">注文履歴</h2>
+                            </div>
+                            <div class="main-box__text">
+                                <ul class="main-box__text__list">
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink class="main-box__text__list__link" action="#{userBean.nextMyHistory()}" value="履歴を確認する"/>
+                                        </h:form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="main-box">
+                            <div class="main-box__head">
+                                <span class="menu-icon fa fa-male fa-5x" style="color: royalblue"></span>
+                                <h2 class="main-box__head__title">アカウント管理</h2>
+                            </div>
+                            <div class="main-box__text">
+                                <ul class="main-box__text__list">
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink class="main-box__text__list__link" action="#{userBean.nextAccount()}" value="登録情報変更"/>
+                                        </h:form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="main-box">
+                            <div class="main-box__head">
+                                <span class="menu-icon fa fa-map-o fa-5x" style="color: royalblue"></span>
+                                <h2 class="main-box__head__title">住所管理</h2>
+                            </div>
+                            <div class="main-box__text">
+                                <ul class="main-box__text__list">
+                                    <li>
+                                        <h:form>
+                                            <h:commandLink class="main-box__text__list__link" action="#{userBean.nextAccount()}" value="住所編集する"/>
+                                        </h:form>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="push"></div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

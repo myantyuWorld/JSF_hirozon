@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>HIROZON</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="/temp/_template.xhtml">
+            <ui:define name ="content">
+                <!--＃ここに実装-->
+                <div class="main-contents">
+                    <form class="main-form">
+                        <h2 class="detail-title"><h:outputLabel value="#{productBean.name}"/></h2>
+                        <div class="detail-wrap">
+                            <div class="detail-img__wrap">
+                                <div class="detail-img__box">
+                                </div>
+                                <div class="active-img">
+                                    <!--ここでっかい画像-->
+                                    <p:graphicImage value="#{productBean.pic1}" width="300" height="300">
+                                        <f:param name="pic1" value="#{productBean.id}"/>
+                                    </p:graphicImage>
+                                </div>
+                            </div>
+                            <div class="detail-contents">
+                                <table class="detail-contents__table">
+                                    <tbody>
+                                        <tr>
+                                            <td>商品名</td>
+                                            <td><h:outputLabel value="#{productBean.name}"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td>価格（円）</td>
+                                            <td>
+                                                <h:outputLabel class="price" value="#{productBean.convertJapanPrice()}"/>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>在庫数（個）</td>
+                                            <td><h:outputLabel value="#{productBean.count}"/></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="detail-contents__pur">
+                                    <p:spinner id="count" value="#{userBean.cartCount}" min="1" max="#{productBean.count}" />
+                                    <h:commandButton class="fa cart-btn" value="&#xf07a; カートに入れる"  action="#{userBean.addMyCart()}"/>
+                                </div>
+                                
+                            </div>
+                        </div>
+                        <div class="detail-sub">
+                            <h2 class="detail-sub__title">その他の食品</h2>
+                            <div class="table-wrap">
+                                <table class="item-table">
+                                    <tbody>
+                                        <!--繰り返し-->
+                                        <ui:repeat value="#{productBean.productBySameCategories}" var="p">
+                                            <tr class="item-table__tr">
+                                                <td class="item-table__td">
+                                                    <h:form style="margin-bottom: 10px;">
+                                                        <h:commandLink action="#{productBean.nextProductDetail(p.p_id)}" >
+                                                            <p:graphicImage value="#{productBean.pic1}" width="170" height="170">
+                                                                <f:param name="pic1" value="#{p.p_id}"/>
+                                                            </p:graphicImage>
+                                                        </h:commandLink>
+                                                    </h:form>
+                                                    <div class="">
+                                                        <h:form>
+                                                            <h:commandLink value="#{p.p_name}" action="#{productBean.nextProductDetail(p.p_id)}"/>
+                                                        </h:form>
+                                                    </div>
+                                                    <div class="price">
+                                                        <h:outputLabel value="#{productBean.convertJapanPrice(p.p_price)}"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </ui:repeat>
+                                        <!-- : 繰り返し-->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="push"></div>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

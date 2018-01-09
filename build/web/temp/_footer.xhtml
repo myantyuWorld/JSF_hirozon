@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+    </h:head>
+    <h:body>
+        <footer class="footer">
+            <div class="foot-contents">
+              <div class="footA">
+                <h2 class="foot-title">HIROZON</h2>
+                <p class="foot-info">
+                  〒733-0013 広島市西区横川新町7-12<br> TEL：082-291-5050
+                  </br>
+                  <a href="http://www.hsc.ac.jp/" class="foot-link">http://www.hsc.ac.jp/</a>
+                </p>
+              </div>
+              <nav class="footB">
+                <div class="foot-nav">
+                  <h3 class="foot-heading">ABOUT</h3>
+                  <ul class="list">
+                    <li><a href="#">HIROZONについて</a></li>
+                    <li><a href="#">地図</a></li>
+                  </ul>
+                </div>
+                <div class="foot-nav">
+                  <h3 class="foot-heading">SUPPORT</h3>
+                  <ul class="list">
+                    <li><a href="#">お問い合わせ</a></li>
+                    <li><a href="#">よくある質問</a></li>
+                  </ul>
+                </div>
+                <div class="foot-nav">
+                  <h3 class="foot-heading">CONTENTS</h3>
+                  <ul class="list">
+                    <li>
+                        <h:form>
+                            <h:commandLink action="#{userBean.nextMemberPage()}" value="メンバー"/>
+                        </h:form>
+                    </li>
+                  </ul>
+                </div>
+              </nav>
+              <div class="footC">
+                <p class="copyright">© HIROZON 広島コンピュータ専門学校 3Bste 2017</p>
+              </div>
+            </div>
+        </footer>
+    </h:body>
+</html>
+

@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>HIROZON|カートの商品</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/temp/_template.xhtml">
+            <ui:define name ="content">
+                <!--＃ここに実装-->
+                <div class="main">
+                    <div class="contents-head">
+                        <p class="cart-comment">今すぐご注文いただけます</p>
+                        <div class="btn-wrap__delete">
+                            <h:form>
+                                <h:commandButton class="delete-btn" value="カートを空にする" action="#{userBean.deleteCartAll()}"/>
+                            </h:form>
+                        </div>
+                    </div>
+                        <div class="table-wrap">
+                            <table class="table-main" border="2" cellpadding="10">
+                                <thead>
+                                    <tr>
+                                        <th class="item-title" scope="col"></th>
+                                        <th class="item-title" scope="col">商品名</th>
+                                        <th class="item-title" scope="col">価格</th>
+                                        <th class="item-title" scope="col">数量</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <ui:repeat value="#{userBean.myCart}" var="c">
+                                        <tr class="cart-pro">
+                                            <td class="table-item">
+                                                <table class="cart-table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="img">
+                                                                <h:form style="margin-bottom: 10px;">
+                                                                    <h:commandLink action="#" >
+                                                                        <p:graphicImage value="#{productBean.pic1}" width="170" height="190">
+                                                                            <f:param name="pic1" value="#{c.p_id}"/>
+                                                                        </p:graphicImage>
+                                                                    </h:commandLink>
+                                                                </h:form>
+                                                            </td>
+                                                            <td>
+                                                                <h:outputLabel value="#{c.dateTime}"/>
+                                                                <p>
+                                                                    に追加された商品
+                                                                </p>
+                                                                <h:form>
+                                                                    <h:commandButton class="pro-delete__btn" value="削除" action="#{userBean.deleteCartLine()}"/>
+                                                                </h:form>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td class="table-item">
+                                                <table>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="table-item-pName">
+                                                                <h:form>
+                                                                    <h:commandLink value="#{productBean.popProductName(c.p_id)}" 
+                                                                                   action="#{productBean.nextProductDetail(c.p_id)}"/>
+                                                                </h:form>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                            <td class="table-item">
+                                                <h:outputLabel class="price" value="#{userBean.convertJapanPrice(c.price)}"/>
+                                            </td>
+                                            <td class="table-item">
+                                                <div class="detail-contents__pur">
+                                                    <p:spinner id="count" value="#{c.count}" min="1" />
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </ui:repeat>
+
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="btn-wrap__purchase">
+                            <h:commandButton class="purchase-btn" value="購入" onclick="PF('dlgCart').show();"/>
+                        </div>
+
+                    <h:form>
+                            <!--dialog-->
+                            <p:dialog class="modal-title" header="確認" widgetVar="dlgCart" modal="true" height="250">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-header">
+                                        <h3 class="modal-title">購入しますか？</h3>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-primary" value="  OK  " action="#{userBean.buyMyCart()}"/>
+                                        <h:commandButton class="btn" value="キャンセル" action="#"/>
+                                    </div>
+                                </div>
+                            </p:dialog>
+                            <!--end dialog-->
+                    </h:form>
+                </div>
+                <div class="push"></div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

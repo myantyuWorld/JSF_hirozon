@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://primefaces.org/ui"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>HIROZON</title>
+        <meta name="viewport" content="width-device-width,initial-scale=1"/>
+        <!--        <link rel="shortcut icon"  type="image/x-icon" href="../img/newlogo2_back_stealth.png" />-->
+    </h:head>
+    <h:body>
+        <header class="header">
+            <div class="header-block">
+                <div class="header-item">
+                    <div class="title-block">
+                        <h:form>
+                            <h:commandLink action="top.xhtml?faces-redirect=true" class="header-">
+                                <h:graphicImage id="logo" url="../img/newlogo2_back_stealth.png" class="header-title__logo" alt="サイトのロゴ"/>
+                            </h:commandLink>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="header-item">
+                    <div class="search-block">
+                        <h:form>
+                            <div class="search-item">
+                                <div class="search-item__pull">
+                                    <!--select one menu category-->
+                                    <h:selectOneMenu value="#{productBean.c_id}" class="search-item__pull__list" >
+                                        <f:selectItem itemLabel="食品" itemValue="0002"/>
+                                        <f:selectItem itemLabel="お酒" itemValue="0003"/>
+                                        <f:selectItem itemLabel="車" itemValue="0004"/>
+                                        <f:selectItem itemLabel="おもちゃ" itemValue="0005"/>
+                                        <f:selectItem itemLabel="薬" itemValue="0006"/>
+                                        <f:selectItem itemLabel="パソコン" itemValue="0007"/>
+                                        <f:selectItem itemLabel="ホーム＆キッチン" itemValue="0008"/>
+                                        <f:selectItem itemLabel="本" itemValue="0009"/>
+                                        <f:selectItem itemLabel="ビデオ" itemValue="0010"/>
+                                        <f:selectItem itemLabel="家電" itemValue="0011"/>
+                                    </h:selectOneMenu>
+                                    <!--end select one menu category-->
+                                </div>
+                                <div class="search-item__input">
+                                    <div class="search-item__txt">
+                                        <h:inputText class="search-txtbox" value="#{productBean.searchWord}" p:placeholder="キーワードで検索"/>
+                                    </div>
+                                    <div class="search-item__btn">
+                                        <h:commandButton class="fa fa-search search-btn" value="&#xf002;" action="#{productBean.searchProductByWord()}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+                <div class="header-item">
+                    <ul class="header-nav__block">
+                        <li class="header-nav__item">
+                            <!--<a href="mypage.html" class="header-nav__link">-->
+                            <h:form>
+                                <h:commandLink action="mypage.xhtml?faces-redirect=true" class="header-nav__link">
+                                    <div class="nav-link__wrap">
+                                        <span class="nav-icon fa fa-male"></span>
+                                        <p>
+                                            <input type="button" class="nav-title nav-btn" value="アカウント"/>
+                                        </p>
+                                    </div>
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li class="header-nav__item">
+                            <!--<a href="history.html" class="header-nav__link">-->
+                            <h:form>
+                                <h:commandLink action="history.xhtml?faces-redirect=true" class="header-nav__link">
+                                    <div class="nav-link__wrap">
+                                        <span class="nav-icon fa fa-history"></span>
+                                        <p><input type="button" class="nav-title nav-btn" value="注文履歴"/></p>
+                                    </div>
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li class="header-nav__item">
+                            <!--<a href="cart.html" class="header-nav__link">-->
+                            <h:form>
+                                <h:commandLink action="cart.xhtml?faces-redirect=true" class="header-nav__link">
+                                    <div class="nav-link__wrap">
+                                        <span class="nav-icon fa fa-shopping-cart"></span>
+                                        <p><input type="button" class="nav-title nav-btn" value="カート"/></p>
+                                    </div>
+                                </h:commandLink>
+                            </h:form>
+                        </li>
+                        <li class="header-nav__item">
+                            <div class="header-nav__link">
+                                <div class="nav-link__wrap">
+                                    <span class="nav-icon fa fa-sign-out"></span>
+                                    <p>
+                                        <h:commandButton class="nav-title nav-btn" value="ログアウト"  onclick="PF('dlgLogout').show()"/>
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+        <!--logout dialog-->
+        <pt:dialog class="modal-title" header="確認" widgetVar="dlgLogout" modal="true" height="250">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-header">
+                    <h3 class="modal-title">ログアウトしますか？</h3>
+                </div>
+                <div class="modal-footer">
+                    <h:form>
+                        <h:commandButton class="btn btn-primary" value="  OK  " action="#{lBean.logout()}"/>
+                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgLogout').hide();"/>
+                    </h:form>
+                </div>
+            </div>
+        </pt:dialog>
+        <!--end logout dialog-->
+    </h:body>
+</html>
+

@@ -1,0 +1,161 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="css\top.css"></link>
+    </h:head>
+    <h:body>
+        <ui:composition template="temp/_template.xhtml">
+            <ui:define name ="content">
+                <div class="top_main-wrap">
+                    <div class="top_main">
+                        <div class="top_main-contents">
+                            <h3 class="top_main-contents__title">食料品</h3>
+                            <div class="top_main-contents__wrap top_top-wrap">
+                                <div href="#" class="top_main-contents__wrap-item">
+                                    <table class="top_item-table">
+                                        <tbody>
+                                            <!--繰り返し-->
+                                            <ui:repeat value="#{productBean.productByFoods}" var="p">
+                                                <tr class="top_item-table__tr">
+                                                    <td class="top_item-table__td">
+                                                        <h:form style="margin-bottom: 10px;">
+                                                            <h:commandLink action="#{productBean.nextProductDetail(p.p_id)}" >
+                                                                <p:graphicImage value="#{productBean.pic1}" width="170" height="170">
+                                                                    <f:param name="pic1" value="#{p.p_id}"/>
+                                                                </p:graphicImage>
+                                                            </h:commandLink>
+                                                        </h:form>
+                                                        <div class="top_">
+                                                            <h:form>
+                                                                <h:commandLink value="#{p.p_name}" action="#{productBean.nextProductDetail(p.p_id)}"/>
+                                                            </h:form>
+                                                        </div>
+                                                        <div class="top_ price">
+                                                            <h:outputLabel value="#{productBean.convertJapanPrice(p.p_price)}"/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                            <!-- : 繰り返し-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top_main-contents">
+                            <h3 class="top_main-contents__title">薬</h3>
+                            <div class="top_main-contents__wrap top_top-wrap">
+                                <!-- itemはひとまず最大5個表示することとする：DB必要 -->
+                                <!-- カテゴリ３，４つ分出す予定：DB必要 -->
+                                <div href="#" class="top_main-contents__wrap-item">
+                                    <table class="top_item-table">
+                                        <tbody>
+                                            <!--繰り返し-->
+                                            <ui:repeat value="#{productBean.productByMedichine}" var="p">
+                                                <tr class="top_item-table__tr">
+                                                    <td class="top_item-table__td">
+                                                        <h:form style="margin-bottom: 10px;">
+                                                            <h:commandLink action="#{productBean.nextProductDetail(p.p_id)}" >
+                                                                <p:graphicImage value="#{productBean.pic1}" width="170" height="170">
+                                                                    <f:param name="pic1" value="#{p.p_id}"/>
+                                                                </p:graphicImage>
+                                                            </h:commandLink>
+                                                        </h:form>
+                                                        <div class="top_">
+                                                            <h:form>
+                                                                <h:commandLink value="#{p.p_name}" action="#{productBean.nextProductDetail(p.p_id)}"/>
+                                                            </h:form>
+                                                        </div>
+                                                        <div class="top_ price">
+                                                            <h:outputLabel value="#{productBean.convertJapanPrice(p.p_price)}"/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                            <!-- : 繰り返し-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="top_main-contents">
+                            <h3 class="top_main-contents__title">本</h3>
+                            <div class="top_main-contents__wrap top_top-wrap">
+                                <div href="#" class="top_main-contents__wrap-item">
+                                    <table class="top_item-table">
+                                        <tbody>
+                                            <!--繰り返し-->
+                                            <ui:repeat value="#{productBean.productByBook}" var="p">
+                                                <tr class="top_item-table__tr">
+                                                    <td class="top_item-table__td">
+                                                        <h:form style="margin-bottom: 10px;">
+                                                            <h:commandLink action="#{productBean.nextProductDetail(p.p_id)}" >
+                                                                <p:graphicImage value="#{productBean.pic1}" width="170" height="170">
+                                                                    <f:param name="pic1" value="#{p.p_id}"/>
+                                                                </p:graphicImage>
+                                                            </h:commandLink>
+                                                        </h:form>
+                                                        <div class="top_">
+                                                            <h:form>
+                                                                <h:commandLink value="#{p.p_name}" action="#{productBean.nextProductDetail(p.p_id)}"/>
+                                                            </h:form>
+                                                        </div>
+                                                        <div class="top_ price">
+                                                            <h:outputLabel value="#{productBean.convertJapanPrice(p.p_price)}"/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </ui:repeat>
+                                            <!-- : 繰り返し-->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="top_ranking-wrap">
+                        <div class="top_ranking-title">
+                            <h3>ランキング</h3>
+                        </div>
+                        <table class="top_ranking-table">
+                            <tbody>
+                                <!--繰り返し-->
+                                <ui:repeat value="#{productBean.rankingAll}" var="p">
+                                    <tr class="top_item-table__tr">
+                                        <td class="top_item-table__td">
+                                            <h:form style="margin-bottom: 10px;">
+                                                <h:commandLink action="#{productBean.nextProductDetail(p.p_id)}" >
+                                                    <p:graphicImage value="#{productBean.pic1}" width="170" height="170">
+                                                        <f:param name="pic1" value="#{p.p_id}"/>
+                                                    </p:graphicImage>
+                                                </h:commandLink>
+                                            </h:form>
+                                            <div class="top_">
+                                                <h:form>
+                                                    <h:commandLink value="#{p.p_name}" action="#{productBean.nextProductDetail(p.p_id)}"/>
+                                                </h:form>
+                                            </div>
+                                            <div class="top_ price">
+                                                <h:outputLabel value="#{productBean.convertJapanPrice(p.p_price)}"/>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </ui:repeat>
+
+                                <!-- : 繰り返し-->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="top_push"></div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>新規会員登録</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
+
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="css\reset.css"></link>
+        <link rel="stylesheet" href="css\account.css"></link>
+    </h:head>
+    <h:body>
+        <header class="header">
+            <h1 class="page-title">HIROZON</h1>
+        </header>
+        <div class="contents">
+            <div class="contents-title">
+                <h2>会員登録</h2>
+            </div>
+            <h:form>
+                <table class="table3">
+
+
+                    <!--id-->
+                    <tr>
+                        <td class="table3-title">ID</td>
+                        <td class="table3-item">
+                            <h:inputText id="uId" value="#{userBean.u_Id}" pt:placeholder="最長7文字"/>
+                        </td>
+                    </tr>
+                    <!--end id-->
+
+                    <!--name--> 
+                    <tr>
+                        <td class="table3-title">名前</td>
+                        <td class="table3-item">
+                            <h:inputText id="uName" value="#{userBean.u_name}" pt:placeholder=""/>
+                        </td>
+                    </tr>
+                    <!--end name-->
+
+                    <!--mailaddress-->
+                    <tr>
+                        <td class="table3-title">アドレス</td>
+                        <td class="table3-item">
+                            <h:inputText id="uMail" value="#{userBean.u_mailaddr}" pt:placeholder="example@example.com">
+                                <f:ajax event="blur" execute="uMail" render="mailerror"/>
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:message for="uMail" id="mailerror" class="errMsg"/>
+                        </td>
+                    </tr>
+                    <!--end mailaddress-->
+
+                    <!--pass-->
+                    <tr>
+                        <td class="table3-title">パスワード</td>
+                        <td class="table3-item">
+                            <h:inputSecret id="uPass" value="#{userBean.u_pass}" required="true" pt:placeholder="必須"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table3-title">パスワード（再）</td>
+                        <td class="table3-item">
+                            <h:inputSecret id="uPass2" value="#{userBean.u_pass2}" required="true" pt:placeholder="再度入力してください">
+                                <f:ajax event="blur" execute="uPass uPass2" render="passerror" listener="#{userBean.ajaxPasswordCheck()}"/>
+                            </h:inputSecret>
+                        </td>
+                        <td>
+                            <h:message id="passerror" for="uPass2" class="errMsg"/>
+                        </td>
+                    </tr>
+                    <!--end pass-->
+
+                    <!--address-->
+                    <tr>
+
+                        <td class="table3-title">郵便番号</td>
+                        <td class="table3-item">
+                            <h:inputText id="uPost" value="#{userBean.u_post}" required="true" pt:placeholder="７桁">
+                                <f:ajax event="blur" execute="@this" render="uPre uAddr" listener="#{userBean.ajaxSearchZipCode()}"/>
+                            </h:inputText>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table3-title">住所</td>
+                        <td class="table3-item">
+                            <h:outputText id="uPre" value="#{userBean.u_pre} #{userBean.u_address}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="table3-title"></td>
+                        <td class="table3-item">
+                            <h:inputText value="#{userBean.u_mansion}" pt:placeholder="番地" />
+                        </td>
+                    </tr>
+                    <!--end address--> 
+
+                    <!--birthDay-->
+                    <tr>
+                        <td class="table3-title">生年月日</td>
+                        <td class="table3-item">
+                            <h:inputText value="#{userBean.u_birth_day}" pt:placeholder="XXXX-XX-XX"/>
+                        </td>
+                    </tr>
+                    <!--end birthDay-->
+
+                    <!--tel-->
+                    <tr>
+                        <td class="table3-title">電話番号</td>
+                        <td class="table3-item">
+                            <h:inputText id="uTel" value="#{userBean.u_tel}" pt:placeholder="0123-45-5678">
+                                <f:ajax event="blur" render="telError" execute="@this"/>
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:message for="uTel" id="telError" class="errMsg"/>
+                        </td>
+                    </tr>
+                    <!--end tel-->
+
+                    <!--sex-->
+                    <tr>
+                        <td class="table3-title">性別</td>
+                        <td class="u-sex">
+                            <h:selectOneRadio value="#{userBean.u_sex}" required="true">
+                                <f:selectItem itemValue="1" itemLabel="男" />
+                                <f:selectItem itemValue="0" itemLabel="女"/>
+                            </h:selectOneRadio>
+                        </td>
+                    </tr>
+                    <!--end sex-->
+                </table>
+
+                <!--dialog-->
+                <div class="add-wrap">
+                    <p:commandButton class="add-button" value="登録" type="button" onclick="PF('dlg2').show();" />
+                </div>
+                <p:dialog class="modal-title" header="確認" widgetVar="dlg2" modal="true" height="200">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-header">
+                            <h3 class="modal-title">新規登録しますか？</h3>
+                        </div>
+                        <div class="modal-footer">
+                            <h:commandButton class="btn btn-primary" value="  OK  " action="#{userBean.addUser()}"/>
+                            <h:commandButton class="btn" value="キャンセル" action="#"/>
+                        </div>
+                    </div>
+                </p:dialog>
+                <!--end dialog-->
+            </h:form>
+        </div>
+    </h:body>
+</html>
+

@@ -1,0 +1,143 @@
+/* top-main */
+
+@media (min-width:768px) {
+  .top_body {
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  .top_header {
+    flex: 0;
+  }
+  .top_main-wrap {
+    margin-top: 40px;
+    margin-left: 20px;
+    display: flex;
+  }
+  .top_main {
+    max-width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0px;
+  }
+  .top_main-contents {
+    flex: 1;
+  }
+  .top_top_ranking-wrap {
+    width: 200px;
+  }
+  .top_footer {
+    flex: 0;
+  }
+}
+
+.top_main-wrap {
+  position: relative;
+  top: 120px;
+  margin-bottom: 120px;
+}
+
+.top_main-contents {
+  margin-bottom: 40px;
+}
+
+.top_main-contents:not(:last-child) {
+  border-bottom: solid 1px #ccc;
+}
+
+.top_main-contents__wrap {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.top_item-table {
+    display: block;
+    border-collapse: separate;
+    border-spacing: 15px;
+    margin-left: 40px;
+}
+
+.top_item-table__tr {
+  display: inline;
+}
+
+.top_item-table__td {
+  width: 170px;
+  height: 200px;
+  background-color: #fff;
+}
+
+.top_main-contents__title {
+  position: relative;
+  color: #111;
+  font-size: 1.143em;
+  font-weight: bold;
+  padding: 0.5em 0.5em 0.5em 1.7em;
+}
+
+.top_main-contents__title:before {
+  content: "";
+  position: absolute;
+  background: #aaaacc;
+  top: 0;
+  left: 0.4em;
+  height: 12px;
+  width: 12px;
+  transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+}
+
+.top_main-contents__title:after {
+  content: "";
+  position: absolute;
+  background: #aaaaff;
+  top: 1.0em;
+  left: 0;
+  height: 8px;
+  width: 8px;
+  transform: rotate(15deg);
+  -moz-transform: rotate(15deg);
+  -webkit-transform: rotate(15deg);
+  -o-transform: rotate(15deg);
+  -ms-transform: rotate(15deg);
+}
+
+.top_search-main {
+  position: relative;
+  top: 180px;
+  margin-bottom: 80px;
+}
+
+.top_search-wrap {
+  flex-wrap: wrap;
+}
+
+.top_ranking-wrap {
+  width: 300px;
+}
+
+.top_ranking-table {
+  border-collapse: separate;
+  border-spacing: 50px;
+}
+
+.top_ranking-td {
+  background-color: #ccc;
+  width: 120px;
+  height: 150px;
+}
+
+.top_ranking-title {
+  text-align: center;
+  font-size: 18px;
+}
+
+.top_header {
+  width: 100%;
+}
+
+.top_footer {
+  width: 100%;
+}

@@ -1,0 +1,126 @@
+.main {
+    position: relative;
+    top: 87px;
+    margin-bottom: 80px;
+}
+
+.cart-comment {
+    font-size: 20px;
+    color: #ff3333;
+}
+
+/* テーブル系 */
+
+.table-wrap {
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.table-main {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.item-title {
+    text-align: center;
+}
+
+.cart-pro:not(:last-child) {
+    border-bottom: 1px solid #ccc;
+}
+
+.cart-table {
+    border-collapse: separate;
+    border-spacing: 30px 20px;
+    ;
+}
+
+.table-item {
+    padding-top: 5px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+}
+
+.table-item-pName{
+    padding-top: 100px;
+    padding-bottom: 10px;
+    padding-right: 5px;
+}
+
+.table-item__text {
+    margin: 10px 0px;
+}
+
+.img {
+    width: 100px;
+    height: 100px;
+    /*background-color: #ddd;*/
+}
+
+.detail-link {
+    text-decoration: none;
+}
+
+/* ボタン系 */
+
+.btn-wrap__delete {
+    margin-top: 5px;
+    margin-bottom: 10px;
+}
+
+.pro-delete__btn {
+    font-size: 15px;
+    color: #333;
+    margin-top: 10px;
+    border: none;
+    border-bottom: solid #ccc;
+    background-color: #fff;
+}
+
+.pro-delete__btn:hover {
+    background-color: #ccc;
+    transition: 0.4s;
+}
+
+.btn-wrap__purchase {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 0;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.delete-btn,
+.purchase-btn {
+    font-size: 18px;
+    display: inline-block;
+    padding: 0.5em 2em;
+    text-decoration: none;
+    color: #3366ff;
+    border: solid 2px #3366ff;
+    border-radius: 3px;
+    transition: 0.4s;
+}
+
+.delete-btn:hover,
+.purchase-btn:hover {
+    background: #aaaaff;
+    color: black;
+}
+
+@media (min-width: 768px) {
+    .main {
+        margin-top: 70px;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+        min-height: calc(100vh - 304px);
+    }
+    .contents-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+}

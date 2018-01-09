@@ -1,0 +1,312 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://primefaces.org/ui"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/temp/_template.xhtml">
+            <ui:define name ="content">
+                <!--＃ここに実装-->
+                <div class="my-main-wrap">
+                    <div class="tabs">
+                        <input id="all" type="radio" name="tab_item" checked="true"/>
+                        <label class="tab_item" for="all">名前</label>
+                        <input id="programming" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="programming">メールアドレス</label>
+                        <input id="design" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="design">電話番号</label>
+                        <input id="pass" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="pass">パスワード</label>
+                        <input id="address" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="address">住所変更</label>
+                        <input id="unsubscribe" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="unsubscribe">退会</label>
+
+                        <!--名前の変更がここに入ります-->
+                        <div class="tab_content" id="all_content">
+                            <div class="tab_content_description">
+                                <p class="c-txtsp">
+                                    <h1>名前変更</h1>
+                                    <div class="tab_content_buhin">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="nowName" >現在の名前</label>
+                                            <div class="col-sm-5">
+                                                <h:outputText  id="bename"  value="#{userBean.u_name}" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" for="newName" >新しい名前</label>
+                                            <div class="col-sm-5">
+                                                <h:inputText styleClass="form-control" id="newname" value="#{editUserBean.newName}" p:placeholder="新しい名前を入力してください" >
+                                                    <h:message for="newname" id="newnameerror" style="" />
+                                                </h:inputText>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-4 col-sm-5">
+                                        <h:commandButton value="変更" onclick="PF('dlgName').show();" styleClass="btn btn-danger"/>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgName" modal="true" height="250">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-header">
+                                    <h3 class="modal-title">変更しますか？</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:form>
+                                        <h:commandButton class="btn btn-primary" value="  OK  " action="#{editUserBean.updateName()}"/>
+                                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgName').hide();"/>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </pt:dialog>
+
+                        <!--メールアドレスの内容がここに入ります-->
+                        <div class="tab_content" id="programming_content">
+                            <div class="tab_content_description">
+                                <p class="c-txtsp">
+                                    <h1>メールアドレス</h1>
+                                    <div class="tab_content_buhin">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" >現在のメールアドレス</label>
+                                            <div class="col-sm-5">
+                                                <h:outputText styleClass="" id="bemail" value="#{userBean.u_mailaddr}" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4" >新しいメールアドレス</label>
+                                            <div class="col-sm-5">
+                                                <h:inputText  styleClass="form-control" id="newmail" value="#{editUserBean.newMailAddr}" p:placeholder="新しいメールアドレスを入力してください">
+                                                    <f:ajax event="blur" execute="@this" render="newmailerror" />
+                                                </h:inputText>
+                                                <h:message for="newmail" id="newmailerror" style="color: tomato" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-4 col-sm-5">
+                                        <h:commandButton value="変更" onclick="PF('dlgMail').show();" styleClass="btn btn-danger"/>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgMail" modal="true" height="250">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-header">
+                                    <h3 class="modal-title">変更しますか？</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:form>
+
+                                        <h:commandButton class="btn btn-primary" value="  OK  " action="#{editUserBean.updateMailAddr()}"/>
+                                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgMail').hide();"/>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </pt:dialog>
+
+                        <!--電話番号変更の内容がここに入ります-->
+                        <div class="tab_content" id="design_content">
+                            <div class="tab_content_description">
+                                <p class="c-txtsp">
+                                    <h1>電話番号変更</h1>
+                                    <div class="tab_content_buhin">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">現在の電話番号</label>
+                                            <div class="col-sm-5">
+                                                <h:outputText id="betel" value="#{userBean.u_tel}" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">新しい電話番号</label>
+                                            <div class="col-sm-5">
+                                                <h:inputText styleClass="form-control" id="newtel" value="#{editUserBean.newTel}" p:placeholder="新しい電話番号を入力してください">
+                                                    <f:ajax event="blur" execute="@this" render="newtelerror" />
+                                                </h:inputText>
+                                                <h:message for="newtel" id="newtelerror" style="color: tomato" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-4 col-sm-5">
+                                        <h:commandButton value="変更" onclick="PF('dlgTel').show();" styleClass="btn btn-danger"/>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgTel" modal="true" height="250">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-header">
+                                    <h3 class="modal-title">変更しますか？</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:form>
+
+                                        <h:commandButton class="btn btn-primary" value="  OK  " action="#{editUserBean.updateTel()}"/>
+                                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgTel').hide();"/>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </pt:dialog>
+
+                        <!--パスワード変更の内容がここに入ります-->
+                        <div class="tab_content" id="pass_content">
+                            <div class="tab_content_description">
+                                <p class="c-txtsp">
+                                    <h1>パスワード変更</h1>
+                                    <div class="tab_content_buhin">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">現在のパスワード</label>
+                                            <div class="col-sm-5">
+                                                <h:inputSecret styleClass="form-control" id="bepass" value="#{editUserBean.loginPass}" p:placeholder="現在使用しているパスワードを入力してください"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">新しいパスワード</label>
+                                            <div class="col-sm-5">
+                                                <h:inputSecret styleClass="form-control" id="newpass" value="#{editUserBean.newPassword}" p:placeholder="新しいパスワードを入力してください" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">再入力</label>
+                                            <div class="col-sm-5">
+                                                <h:inputSecret styleClass="form-control" id="newpasscmp" value="#{editUserBean.newPassword2}" p:placeholder="再度入力してください">
+                                                    <f:ajax event="blur" execute="@this" render="newpasserror" listener="#"/>
+                                                </h:inputSecret>
+                                                <h:outputText style="color: tomato" id="newpasserror" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-4 col-sm-5">
+                                        <h:commandButton value="変更" onclick="PF('dlgPass').show();" styleClass="btn btn-danger"/>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgPass" modal="true" height="250">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-header">
+                                    <h3 class="modal-title">変更しますか？</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:form>
+
+                                        <h:commandButton class="btn btn-primary" value="  OK  " action="#{editUserBean.updatePassword()}"/>
+                                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgPass').hide();"/>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </pt:dialog>
+
+                        <!--住所変更の内容がここに入ります-->
+                        <div class="tab_content" id="address_content">
+                            <div class="tab_content_description">
+                                <p class="c-txtsp">
+                                    <h1>住所変更</h1>
+                                    <div class="tab_content_buhin">
+
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">郵便番号</label>
+                                            <div class="col-sm-5">
+                                                <h:inputText styleClass="form-control" value="#{userBean.u_post}" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">都道府県</label>
+                                            <div class="col-sm-5">
+                                                <h:selectOneMenu value="#{userBean.u_address}"><f:selectItems value="#{prefList.items}" /></h:selectOneMenu>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">住所</label>
+                                            <div class="col-sm-5">
+                                                <h:inputText styleClass="form-control" value="#{userBean.u_address}" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">マンション</label>
+                                            <div class="col-sm-5">
+                                                <h:inputText styleClass="form-control" value="#{userBean.u_address}" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-4 col-sm-5">
+                                        <h:commandButton value="変更" onclick="PF('dlgAddress').show();" styleClass="btn btn-danger"/>
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgAddress" modal="true" height="250">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-header">
+                                    <h3 class="modal-title">変更しますか？</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:form>
+                                        <h:commandButton class="btn btn-primary" value="  OK  " action="#"/>
+                                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgAddress').hide();"/>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </pt:dialog>
+
+                        <!--退会の内容がここに入ります-->
+                        <div class="tab_content" id="unsubscribe_content">
+                            <div class="tab_content_description">
+                                <p class="c-txtsp">
+                                    <h1>退会</h1>
+                                    <div class="tab_content_buhin">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">メールアドレス</label>
+                                            <div class="col-sm-5">
+                                                <h:inputText styleClass="form-control" value="#{editUserBean.nowMailAddr}"  p:placeholder="ログインで使用するIDを入力してください" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-4">パスワード</label>
+                                            <div class="col-sm-5">
+                                                <h:inputSecret styleClass="form-control" value="#{editUserBean.loginPass}" p:placeholder="ログインで使用するパスワードを入力してください" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-offset-4 col-sm-5">
+                                        <h:commandButton value="退会" onclick="PF('dlgUnSub').show();" styleClass="btn btn-danger" />
+                                    </div>
+                                </p>
+                            </div>
+                        </div>
+                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgUnSub" modal="true" height="250">
+                            <div class="modal-dialog">
+                                <!-- Modal content-->
+                                <div class="modal-header">
+                                    <h3 class="modal-title">変更しますか？</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:form>
+                                        <h:commandButton class="btn btn-primary" value="  OK  " action="#"/>
+                                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgUnSub').hide();"/>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </pt:dialog>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

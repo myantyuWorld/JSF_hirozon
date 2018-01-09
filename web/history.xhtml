@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>HIROZON|購入履歴</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/temp/_template.xhtml">
+            <ui:define name ="content">
+                <!--＃ここに実装-->
+                <div class="his_main-contents">
+                    <div class="his_contents-header">
+                        <div class="his_contents-header__r">
+                            <div class="his_contents-title">
+                                <h1>注文履歴</h1>
+                            </div>
+                            <div class="his_search-period__box">
+                                <select class="his_search-period">
+                                    <!-- 期間は勝手に決めて -->
+                                    <option value="">一か月</option>
+                                    <option value="">一か月</option>
+                                    <option value="">一か月</option>
+                                    <option value="">一か月</option>
+                                    <option value="">一か月</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="his_history-search__block">
+                            <div class="his_history-search__item">
+                                <i class="his_fa fa-search"></i>
+                                <input type="text" class="his_history-search__text"/>
+                            </div>
+                            <div class="his_search-btn__box">
+                                <input type="button" class="his_history-search__btn" value="履歴検索"/>
+                            </div>
+                        </div>
+                    </div>
+                    <ui:repeat value="#{userBean.myHistory}" var="h">
+                        <!-- ***1*** 繰り返し項目 -->
+
+                        <div class="his_contents-box">
+                            <div class="his_box-header">
+                                <div class="his_header-item__l">
+                                    <div class="his_header-item__list">
+                                        <div class="his_">
+                                            注文日：
+                                        </div>
+                                        <div class="his_">
+                                            <h:outputLabel value="#{h.datetime}"/>
+                                        </div>
+                                    </div>
+                                    <div class="his_header-item__list">
+                                        <div class="his_">
+                                            合計金額：
+                                        </div>
+                                        <div class="his_ price">
+                                            <h:outputLabel value="#{productBean.convertJapanPrice(h.count * h.p_price)}"/>
+                                        </div>
+                                    </div>
+                                    <div class="his_header-item__list">
+                                        <div class="his_">
+                                            お届け先：
+                                        </div>
+                                        <div class="his_">
+                                            <h:outputLabel value="#{h.u_address}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="his_header-item__r">
+                                    <div class="his_header-item__list">
+                                        <div class="his_">
+                                            注文番号：
+                                        </div>
+                                        <div class="his_">
+                                            <h:outputLabel value="#{h.buy_id}"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="his_box-detail">
+                                <div class="his_detail-wrap">
+                                    <div class="his_detail-item his_pro-img__box">
+                                        <div class="his_pro-img__item">
+                                            <h:form style="margin-bottom: 10px;">
+                                                <h:commandLink action="#" >
+                                                    <p:graphicImage value="#{productBean.pic1}" width="170" height="170">
+                                                        <f:param name="pic1" value="#{h.p_id}"/>
+                                                    </p:graphicImage>
+                                                </h:commandLink>
+                                            </h:form>
+                                        </div>
+                                    </div>
+                                    <div class="his_detail-item his_pro-name__box">
+                                        <div class="his_pro-name__item">
+                                            <h:outputLabel value="#{h.p_name}"/>
+                                        </div>
+                                    </div>
+                                    <div class="his_detail-item his_pro-value__box">
+                                        <div class="his_pro-value his_pro-value__item price">
+                                            <h:outputLabel value="#{productBean.convertJapanPrice(h.p_price)}"/>
+                                        </div>
+                                    </div>
+                                    <div class="his_detail-item purchase-btn__box">
+                                        <div class="his_purchase-btn__wrap">
+                                            <form method="post" action="/JSF_HIROZON/faces/user_history.xhtml" enctype="application/x-www-form-urlencoded">
+                                                <input class="his_purchase-btn" type="submit" name="j_idt38:1:j_idt66:j_idt67" value="再度購入" />
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- ***1*** 繰り返し項目 end -->
+                    </ui:repeat>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
