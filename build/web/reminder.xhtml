@@ -20,8 +20,20 @@
 
     </h:head>
     <h:body>
+        <script type="text/javascript">
+           history.pushState(null, null, null);
+           window.addEventListener("popstate", function () {
+               history.pushState(null, null, null);
+           });
+        </script>
         <div class="container" >
             <h1>Hirozon</h1>
+            <h:form>
+                <p:breadCrumb>
+                    <p:menuitem value="Categories"  action="index.xhtml?faces-redirect=true" />
+                    <p:menuitem value="ログイン画面" action="index.xhtml?faces-redirect=true" />
+                </p:breadCrumb>
+            </h:form>
             <div class="midashi" >
                 パスワードを忘れた方へ
             </div>
@@ -42,22 +54,22 @@
                         </div>
                     </div>
                 </div>
+                <p:dialog class="modal-title"  id="dlg" header="確認" widgetVar="dlg" modal="true" height="300">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-header">
+                            <h3 class="modal-title">生成したパスワード</h3>
+                        </div>
+                        あなたの新しいパスワードは<br/>
+                        "<h:outputLabel value="#{userBean.u_pass}"/>" です！
+                        <div class="modal-footer">
+                            <h:form>
+                                <h:commandButton class="btn" value="OK" action="index.xhtml?faces-redirect=true"/>
+                            </h:form>
+                        </div>
+                    </div>
+                </p:dialog>
             </h:form>
-            <p:dialog class="modal-title"  id="dlg" header="確認" widgetVar="dlg" modal="true" height="300">
-                <div class="modal-dialog">
-                    <!-- Modal content-->
-                    <div class="modal-header">
-                        <h3 class="modal-title">生成したパスワード</h3>
-                    </div>
-                    あなたの新しいパスワードは<br/>
-                    "<h:outputLabel value="#{userBean.u_pass}"/>" です！
-                    <div class="modal-footer">
-                        <h:form>
-                            <h:commandButton class="btn" value="OK" action="index.xhtml?faces-redirect=true"/>
-                        </h:form>
-                    </div>
-                </div>
-            </p:dialog>
         </div>
     </h:body>
     <script>
@@ -69,7 +81,6 @@
             if (args.showFlag) {
                 PF('dlg').show();
             } else {
-//                PF('dlg').show();
             }
         }
         ;
