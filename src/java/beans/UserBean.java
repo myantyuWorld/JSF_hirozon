@@ -38,20 +38,22 @@ import util.Util;
 @SessionScoped
 public class UserBean extends SuperBean implements Serializable {
 
+    @NotEmpty(message = "IDを入力してください")
     private String u_Id;			//*** ユーザID ***//
-    private String u_name;		//*** 氏名 ***//
+    private String u_name = "";		//*** 氏名 ***//
+    @NotEmpty(message = "パスワード 未入力です！")
     private String u_pass;		//*** パスワード（ハッシュ済み） ***//
-    @NotEmpty(message = "未入力です！")
+    @NotEmpty(message = "パスワード（再） 未入力です！")
     private String u_pass2;
     @Pattern(regexp = "^.*@.*\\..*$|^.*@.*\\..*\\..*$|^.*@.*\\..*\\..*\\..*$", message = "メールアドレスの形式が正しくありません")
     private String u_mailaddr;		//*** メールアドレス ***//
-    private String u_post;		//*** 郵便番号 ***//
-    private String u_address;		//*** 住所 ***//
-    private String u_pre;
-    private String u_mansion;
-    private String u_tel;			//*** 電話番号 ***//
-    private String u_birth_day;		//*** 生年月日 ***//
-    private String u_sex;			//*** 性別 ***//
+    private String u_post = "";		//*** 郵便番号 ***//
+    private String u_address = "";		//*** 住所 ***//
+    private String u_pre = "";
+    private String u_mansion = "";
+    private String u_tel = "";			//*** 電話番号 ***//
+    private String u_birth_day = "";		//*** 生年月日 ***//
+    private String u_sex = "";			//*** 性別 ***//
     
     //***  ***//
     private Integer cartCount = 1;
@@ -299,8 +301,13 @@ public class UserBean extends SuperBean implements Serializable {
                 u_sex, 
                 u_tel
         );
-        db.persist(um);
-        addMessage("Welcome to Primefaces!!");
+        String result = db.persist(um);
+        if (result.equals("0")){
+            addMessage("ユーザ登録が完了しました");
+            init();
+        } else {
+            addMessage("登録できませんでした");
+        }
         return "";
 //        return nextIndexPage();
     }
@@ -335,4 +342,16 @@ public class UserBean extends SuperBean implements Serializable {
         context.addCallbackParam("showFlag", flg);
     }
     
+    public void init(){
+        this.u_Id = "";
+        this.u_name = "";
+        this.u_mailaddr = "";
+        this.u_pass = "";
+        this.u_pass2 = "";
+        this.u_address = "";
+        this.u_mansion = "";
+        this.u_birth_day = "";
+        this.u_tel = "";
+        this.u_sex = "";
+    }
 }
