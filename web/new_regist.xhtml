@@ -28,8 +28,6 @@
             </div>
             <h:form>
                 <table class="table3">
-
-
                     <!--id-->
                     <tr>
                         <td class="table3-title">ID</td>
@@ -153,8 +151,25 @@
                             <h3 class="modal-title">新規登録しますか？</h3>
                         </div>
                         <div class="modal-footer">
-                            <h:commandButton class="btn btn-primary" value="  OK  " action="#{userBean.addUser()}"/>
+                            <p:commandButton class="btn btn-primary" value="OK"
+                                             actionListener="#{userBean.addUser}"
+                                             oncomplete="handleRequest(xhr, status, args);"/>
                             <h:commandButton class="btn" value="キャンセル" action="#"/>
+                        </div>
+                    </div>
+                </p:dialog>
+                <!--新規登録に失敗した際のダイアログ-->
+                <p:dialog class="modal-title"  id="dlg" header="確認" widgetVar="dlg" modal="true" height="300">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-header">
+                            <h3 class="modal-title">エラー！</h3>
+                        </div>
+                        エラー
+                        <div class="modal-footer">
+                            <h:form>
+                                <h:commandButton class="btn" value="OK" action="new_regist.xhtml?faces-redirect=true"/>
+                            </h:form>
                         </div>
                     </div>
                 </p:dialog>
@@ -162,5 +177,17 @@
             </h:form>
         </div>
     </h:body>
+    <script>
+        function handleRequest(xhr, status, args) {
+            console.log("call function handleRequest(xhr, status, args)");
+            if (args === null) {
+                return;
+            }
+            if (args.showFlag) {
+                PF('dlg').show();
+            } 
+        }
+        ;
+    </script>
 </html>
 

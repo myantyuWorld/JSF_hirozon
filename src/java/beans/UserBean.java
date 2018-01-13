@@ -260,8 +260,9 @@ public class UserBean extends SuperBean implements Serializable {
     }
     
     //*** 新規登録 ***//
-    public String addUser() throws NoSuchAlgorithmException{
+    public String addUser(ActionEvent e) throws NoSuchAlgorithmException{
         System.out.println("beans.UserBean.addUser()");
+        RequestContext context = RequestContext.getCurrentInstance();
         UserModel um = new UserModel(
                 u_Id,
                 u_name, 
@@ -273,10 +274,15 @@ public class UserBean extends SuperBean implements Serializable {
                 u_sex, 
                 u_tel
         );
-        db.persist(um);
+        String result = db.persist(um);
+        // 登録時に失敗した際の処理
+        if (result.equals(ERROR)){
+            context.addCallbackParam("showFlg", true);
+        }
         
         return nextIndexPage();
     }
+    private static final String ERROR = "1";
     
     //*** Beans-->JSへの値渡し reminder.xhtml->handleRequest()参照 ***//
     public void handlePassReminder(ActionEvent actionEvent) throws NoSuchAlgorithmException{
