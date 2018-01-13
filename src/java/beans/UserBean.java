@@ -42,9 +42,9 @@ public class UserBean extends SuperBean implements Serializable {
     private String u_Id;			//*** ユーザID ***//
     private String u_name = "";		//*** 氏名 ***//
     @NotEmpty(message = "パスワード 未入力です！")
-    private String u_pass;		//*** パスワード（ハッシュ済み） ***//
+    private String u_pass = "";		//*** パスワード（ハッシュ済み） ***//
     @NotEmpty(message = "パスワード（再） 未入力です！")
-    private String u_pass2;
+    private String u_pass2  = "";
     @Pattern(regexp = "^.*@.*\\..*$|^.*@.*\\..*\\..*$|^.*@.*\\..*\\..*\\..*$", message = "メールアドレスの形式が正しくありません")
     private String u_mailaddr;		//*** メールアドレス ***//
     private String u_post = "";		//*** 郵便番号 ***//
@@ -328,19 +328,24 @@ public class UserBean extends SuperBean implements Serializable {
             errMsgPassGenerate = "そのIDのユーザは存在しません！";
             flg = false;
         } else {
-            String pass = Util.getRandomString(5);
-            um.setU_pass(Util.returnSHA256(pass));
-            System.out.println(pass);
-            System.out.println(Util.returnSHA256(pass));
-            this.u_pass = pass;
-            this.setU_pass(pass);
-//            loginBean.setPass(pass);
-            
+//            this.u_pass = Util.getRandomString(5);
+            System.out.println(this.u_pass);
+            System.out.println(Util.returnSHA256(this.u_pass));
+            um.setU_pass(Util.returnSHA256(this.u_pass));
             db.merge(um);
         }
         
         context.addCallbackParam("showFlag", flg);
     }
+    
+    //***  ***//
+    public String passReminder() {
+        
+        this.u_pass = Util.getRandomString(5);
+        
+        return "reminder.xhtml?faces-redirect=true";
+    }
+    
     
     public void init(){
         this.u_Id = "";
