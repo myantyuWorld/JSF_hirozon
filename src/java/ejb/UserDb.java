@@ -43,6 +43,11 @@ public class UserDb {
         }
         return um;
     }
+    
+    public UserModel find(String key){
+        System.out.println("ejb.UserDb.find()");
+        return em.find(UserModel.class, key);
+    }
 
     //*** ログインIDから当該ユーザ情報を取得するメソッド ***//
     public UserModel findUser(String loginId){
@@ -65,15 +70,19 @@ public class UserDb {
     }
     
     //*** 新規登録用メソッド ***//
-    public void persist(UserModel um){
+    public String persist(UserModel um){
         System.out.println("ejb.UserDb.persist()");
         try {
             em.persist(um);
         } catch (Exception e){
             System.out.println("errorrrrrrrrrrrrrrrrrrrrrrr!");
             
+            return ERROR;
             // ここでエラーが起きたら、メッセージでも出すようにする
         }
+        return OK;
     }
+    private static final String ERROR = "1";
+    private static final String OK = "0";
     
 }

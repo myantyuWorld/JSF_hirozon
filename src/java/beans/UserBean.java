@@ -21,6 +21,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
@@ -36,24 +38,27 @@ import util.Util;
 @SessionScoped
 public class UserBean extends SuperBean implements Serializable {
 
+    @NotEmpty(message = "IDを入力してください")
     private String u_Id;			//*** ユーザID ***//
-    private String u_name;		//*** 氏名 ***//
+    private String u_name = "";		//*** 氏名 ***//
+    @NotEmpty(message = "パスワード 未入力です！")
     private String u_pass;		//*** パスワード（ハッシュ済み） ***//
-    @NotEmpty(message = "未入力です！")
+    @NotEmpty(message = "パスワード（再） 未入力です！")
     private String u_pass2;
     @Pattern(regexp = "^.*@.*\\..*$|^.*@.*\\..*\\..*$|^.*@.*\\..*\\..*\\..*$", message = "メールアドレスの形式が正しくありません")
     private String u_mailaddr;		//*** メールアドレス ***//
-    private String u_post;		//*** 郵便番号 ***//
-    private String u_address;		//*** 住所 ***//
-    private String u_pre;
-    private String u_mansion;
-    private String u_tel;			//*** 電話番号 ***//
-    private String u_birth_day;		//*** 生年月日 ***//
-    private String u_sex;			//*** 性別 ***//
+    private String u_post = "";		//*** 郵便番号 ***//
+    private String u_address = "";		//*** 住所 ***//
+    private String u_pre = "";
+    private String u_mansion = "";
+    private String u_tel = "";			//*** 電話番号 ***//
+    private String u_birth_day = "";		//*** 生年月日 ***//
+    private String u_sex = "";			//*** 性別 ***//
     
     //***  ***//
     private Integer cartCount = 1;
     private String errMsgPassGenerate;
+    private String idErrorMsg;
     
     @Inject
     ProductBean productBean;
@@ -164,6 +169,15 @@ public class UserBean extends SuperBean implements Serializable {
         this.errMsgPassGenerate = errMsgPassGenerate;
     }
 
+    public String getIdErrorMsg() {
+        return idErrorMsg;
+    }
+
+    public void setIdErrorMsg(String idErrorMsg) {
+        this.idErrorMsg = idErrorMsg;
+    }
+    
+
     @Override
     public String toString() {
         return this.u_Id + " : " + this.u_name;
@@ -259,10 +273,23 @@ public class UserBean extends SuperBean implements Serializable {
        });
     }
     
+    //*** Ajax--ユーザIDの重複をチェックするメソッド ***//
+    public void ajaxUserIdCheck(){
+        System.out.println("beans.UserBean.ajaxUserIdCheck()");
+        System.out.println(this.u_Id);
+        
+        UserModel um = db.find(u_Id);
+        if (um != null){
+            this.idErrorMsg = "IDが重複しています";
+            return ;
+        }
+        
+        this.idErrorMsg = "";
+    }
+    
     //*** 新規登録 ***//
-    public String addUser(ActionEvent e) throws NoSuchAlgorithmException{
+    public String addUser() throws NoSuchAlgorithmException{
         System.out.println("beans.UserBean.addUser()");
-        RequestContext context = RequestContext.getCurrentInstance();
         UserModel um = new UserModel(
                 u_Id,
                 u_name, 
@@ -275,14 +302,20 @@ public class UserBean extends SuperBean implements Serializable {
                 u_tel
         );
         String result = db.persist(um);
-        // 登録時に失敗した際の処理
-        if (result.equals(ERROR)){
-            context.addCallbackParam("showFlg", true);
+        if (result.equals("0")){
+            addMessage("ユーザ登録が完了しました");
+            init();
+        } else {
+            addMessage("登録できませんでした");
         }
-        
-        return nextIndexPage();
+        return "";
+//        return nextIndexPage();
     }
-    private static final String ERROR = "1";
+    
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
     
     //*** Beans-->JSへの値渡し reminder.xhtml->handleRequest()参照 ***//
     public void handlePassReminder(ActionEvent actionEvent) throws NoSuchAlgorithmException{
@@ -309,4 +342,16 @@ public class UserBean extends SuperBean implements Serializable {
         context.addCallbackParam("showFlag", flg);
     }
     
+    public void init(){
+        this.u_Id = "";
+        this.u_name = "";
+        this.u_mailaddr = "";
+        this.u_pass = "";
+        this.u_pass2 = "";
+        this.u_address = "";
+        this.u_mansion = "";
+        this.u_birth_day = "";
+        this.u_tel = "";
+        this.u_sex = "";
+    }
 }
