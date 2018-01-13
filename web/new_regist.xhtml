@@ -21,8 +21,13 @@
     <h:body>
         <header class="header">
             <h1 class="page-title">HIROZON</h1>
-            <h:form><h:commandLink action="index.xhtml?faces-redirect=true" value="back"/></h:form>
         </header>
+            <h:form>
+                <p:breadCrumb>
+                    <p:menuitem value="Categories"  action="index.xhtml?faces-redirect=true" />
+                    <p:menuitem value="ログイン画面" action="index.xhtml?faces-redirect=true" />
+                </p:breadCrumb>
+            </h:form>
         <div class="contents">
             <div class="contents-title">
                 <h2>会員登録</h2>
@@ -59,9 +64,6 @@
                             <h:inputText id="uMail" value="#{userBean.u_mailaddr}" pt:placeholder="example@example.com">
                                 <f:ajax event="blur" execute="uMail" render="mailerror"/>
                             </h:inputText>
-                        </td>
-                        <td>
-                            <h:message for="uMail" id="mailerror" class="errMsg"/>
                         </td>
                     </tr>
                     <!--end mailaddress-->
@@ -168,7 +170,7 @@
                             <h3 class="modal-title">新規登録しますか？</h3>
                         </div>
                         <div class="modal-footer">
-                            <p:growl id="growl" life="20000" />
+                            <p:growl id="growl" life="5000" />
                             <p:commandButton 
                                              class="btn btn-primary" 
                                              value="  OK  " 
