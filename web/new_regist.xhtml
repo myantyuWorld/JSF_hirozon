@@ -21,6 +21,7 @@
     <h:body>
         <header class="header">
             <h1 class="page-title">HIROZON</h1>
+            <h:form><h:commandLink action="index.xhtml?faces-redirect=true" value="back"/></h:form>
         </header>
         <div class="contents">
             <div class="contents-title">
@@ -28,8 +29,6 @@
             </div>
             <h:form>
                 <table class="table3">
-
-
                     <!--id-->
                     <tr>
                         <td class="table3-title">ID</td>
@@ -159,6 +158,8 @@
                 <!--dialog-->
                 <div class="add-wrap">
                     <p:commandButton class="add-button" value="登録" type="button" onclick="PF('dlg2').show();" />
+                </div>
+                <div class="add-wrap">
                 </div>
                 <p:dialog class="modal-title" header="確認" widgetVar="dlg2" modal="true" height="200">
                     <div class="modal-dialog">
