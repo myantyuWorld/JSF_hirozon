@@ -54,6 +54,7 @@ public class UserBean extends SuperBean implements Serializable {
     //***  ***//
     private Integer cartCount = 1;
     private String errMsgPassGenerate;
+    private String idErrorMsg;
     
     @Inject
     ProductBean productBean;
@@ -164,6 +165,15 @@ public class UserBean extends SuperBean implements Serializable {
         this.errMsgPassGenerate = errMsgPassGenerate;
     }
 
+    public String getIdErrorMsg() {
+        return idErrorMsg;
+    }
+
+    public void setIdErrorMsg(String idErrorMsg) {
+        this.idErrorMsg = idErrorMsg;
+    }
+    
+
     @Override
     public String toString() {
         return this.u_Id + " : " + this.u_name;
@@ -257,6 +267,20 @@ public class UserBean extends SuperBean implements Serializable {
            this.u_pre = d.getPref();                                         // 県名セット
            this.u_address = d.getCity() + d.getStreet();        // 県名以降の住所をセット
        });
+    }
+    
+    //*** Ajax--ユーザIDの重複をチェックするメソッド ***//
+    public void ajaxUserIdCheck(){
+        System.out.println("beans.UserBean.ajaxUserIdCheck()");
+        System.out.println(this.u_Id);
+        
+        UserModel um = db.find(u_Id);
+        if (um != null){
+            this.idErrorMsg = "IDが重複しています";
+            return ;
+        }
+        
+        this.idErrorMsg = "";
     }
     
     //*** 新規登録 ***//

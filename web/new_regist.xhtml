@@ -34,7 +34,12 @@
                     <tr>
                         <td class="table3-title">ID</td>
                         <td class="table3-item">
-                            <h:inputText id="uId" value="#{userBean.u_Id}" pt:placeholder="最長7文字"/>
+                            <h:inputText id="uId" value="#{userBean.u_Id}" pt:placeholder="最長7文字">
+                                <f:ajax event="blur" execute="uId" render="iderror" listener="#{userBean.ajaxUserIdCheck()}"/> 
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputText id="iderror" value="#{userBean.idErrorMsg}" class="errMsg"/>
                         </td>
                     </tr>
                     <!--end id-->
@@ -66,15 +71,24 @@
                     <tr>
                         <td class="table3-title">パスワード</td>
                         <td class="table3-item">
-                            <h:inputSecret id="uPass" value="#{userBean.u_pass}" required="true" pt:placeholder="必須"/>
+                            <!--<h:inputSecret id="uPass" value="#{userBean.u_pass}" required="true" pt:placeholder="必須"/>-->
+                            <p:password id="pswd" maxlength="10" feedback="true"
+                                        promptLabel="入力して下さい" weakLabel="パスワード強度：弱い" 
+                                        goodLabel="パスワード強度：普通" strongLabel="パスワード強度：強い" 
+                                        value="#{userBean.u_pass}" />
                         </td>
                     </tr>
                     <tr>
                         <td class="table3-title">パスワード（再）</td>
                         <td class="table3-item">
-                            <h:inputSecret id="uPass2" value="#{userBean.u_pass2}" required="true" pt:placeholder="再度入力してください">
+<!--                            <h:inputSecret id="uPass2" value="#{userBean.u_pass2}" required="true" pt:placeholder="再度入力してください">
                                 <f:ajax event="blur" execute="uPass uPass2" render="passerror" listener="#{userBean.ajaxPasswordCheck()}"/>
-                            </h:inputSecret>
+                            </h:inputSecret>-->
+                            <p:password id="pswd2" maxlength="10" feedback="true" value="#{userBean.u_pass2}"
+                                        promptLabel="入力して下さい" weakLabel="パスワード強度：弱い" 
+                                        goodLabel="パスワード強度：普通" strongLabel="パスワード強度：強い" >
+                                <f:ajax event="blur" execute="uPass uPass2" render="passerror" listener="#{userBean.ajaxPasswordCheck()}"/>     
+                            </p:password>
                         </td>
                         <td>
                             <h:message id="passerror" for="uPass2" class="errMsg"/>
