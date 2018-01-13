@@ -142,22 +142,25 @@
 
                 <!--dialog-->
                 <div class="add-wrap">
-                    <p:commandButton class="add-button" value="登録" type="button" onclick="PF('dlg2').show();" />
+                    <p:commandButton class="add-button" value="登録" type="button" 
+                                     action="#{userBean.addUser()}"
+                                     oncomplete="handleRequest(xhr, status, args);"
+                                     />
                 </div>
-                <p:dialog class="modal-title" header="確認" widgetVar="dlg2" modal="true" height="200">
+<!--                <p:dialog class="modal-title" header="確認" widgetVar="dlg2" modal="true" height="200">
                     <div class="modal-dialog">
-                        <!-- Modal content-->
+                         Modal content
                         <div class="modal-header">
                             <h3 class="modal-title">新規登録しますか？</h3>
                         </div>
                         <div class="modal-footer">
                             <p:commandButton class="btn btn-primary" value="OK"
-                                             actionListener="#{userBean.addUser}"
+                                             actionListener=""
                                              oncomplete="handleRequest(xhr, status, args);"/>
                             <h:commandButton class="btn" value="キャンセル" action="#"/>
                         </div>
                     </div>
-                </p:dialog>
+                </p:dialog>-->
                 <!--新規登録に失敗した際のダイアログ-->
                 <p:dialog class="modal-title"  id="dlg" header="確認" widgetVar="dlg" modal="true" height="300">
                     <div class="modal-dialog">
@@ -185,7 +188,9 @@
             }
             if (args.showFlag) {
                 PF('dlg').show();
-            } 
+            } else {
+                console.log("newRegist OK!")
+            }
         }
         ;
     </script>
