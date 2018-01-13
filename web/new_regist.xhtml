@@ -167,7 +167,16 @@
                             <h3 class="modal-title">新規登録しますか？</h3>
                         </div>
                         <div class="modal-footer">
-                            <h:commandButton class="btn btn-primary" value="  OK  " action="#{userBean.addUser()}"/>
+                            <p:growl id="growl" life="2000" />
+                            <p:commandButton 
+                                             class="btn btn-primary" 
+                                             value="  OK  " 
+                                             ajax="false"
+                                             update="growl"
+                                             action="#{userBean.addUser()}"
+                                             onclick="PF('dlg2').hide()"
+                                             oncomplete="#{userBean.nextIndexPage()}"
+                                             />
                             <h:commandButton class="btn" value="キャンセル" action="#"/>
                         </div>
                     </div>

@@ -21,6 +21,8 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
@@ -298,8 +300,14 @@ public class UserBean extends SuperBean implements Serializable {
                 u_tel
         );
         db.persist(um);
-        
-        return nextIndexPage();
+        addMessage("Welcome to Primefaces!!");
+        return "";
+//        return nextIndexPage();
+    }
+    
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     //*** Beans-->JSへの値渡し reminder.xhtml->handleRequest()参照 ***//
