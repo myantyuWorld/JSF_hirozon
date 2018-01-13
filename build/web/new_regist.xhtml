@@ -21,6 +21,7 @@
     <h:body>
         <header class="header">
             <h1 class="page-title">HIROZON</h1>
+            <h:form><h:commandLink action="index.xhtml?faces-redirect=true" value="back"/></h:form>
         </header>
         <div class="contents">
             <div class="contents-title">
@@ -28,13 +29,16 @@
             </div>
             <h:form>
                 <table class="table3">
-
-
                     <!--id-->
                     <tr>
                         <td class="table3-title">ID</td>
                         <td class="table3-item">
-                            <h:inputText id="uId" value="#{userBean.u_Id}" pt:placeholder="最長7文字"/>
+                            <h:inputText id="uId" value="#{userBean.u_Id}" pt:placeholder="最長7文字">
+                                <f:ajax event="blur" execute="uId" render="iderror" listener="#{userBean.ajaxUserIdCheck()}"/> 
+                            </h:inputText>
+                        </td>
+                        <td>
+                            <h:outputText id="iderror" value="#{userBean.idErrorMsg}" class="errMsg"/>
                         </td>
                     </tr>
                     <!--end id-->
@@ -66,15 +70,24 @@
                     <tr>
                         <td class="table3-title">パスワード</td>
                         <td class="table3-item">
-                            <h:inputSecret id="uPass" value="#{userBean.u_pass}" required="true" pt:placeholder="必須"/>
+                            <!--<h:inputSecret id="uPass" value="#{userBean.u_pass}" required="true" pt:placeholder="必須"/>-->
+                            <p:password id="pswd" maxlength="10" feedback="true"
+                                        promptLabel="入力して下さい" weakLabel="パスワード強度：弱い" 
+                                        goodLabel="パスワード強度：普通" strongLabel="パスワード強度：強い" 
+                                        value="#{userBean.u_pass}" />
                         </td>
                     </tr>
                     <tr>
                         <td class="table3-title">パスワード（再）</td>
                         <td class="table3-item">
-                            <h:inputSecret id="uPass2" value="#{userBean.u_pass2}" required="true" pt:placeholder="再度入力してください">
+<!--                            <h:inputSecret id="uPass2" value="#{userBean.u_pass2}" required="true" pt:placeholder="再度入力してください">
                                 <f:ajax event="blur" execute="uPass uPass2" render="passerror" listener="#{userBean.ajaxPasswordCheck()}"/>
-                            </h:inputSecret>
+                            </h:inputSecret>-->
+                            <p:password id="pswd2" maxlength="10" feedback="true" value="#{userBean.u_pass2}"
+                                        promptLabel="入力して下さい" weakLabel="パスワード強度：弱い" 
+                                        goodLabel="パスワード強度：普通" strongLabel="パスワード強度：強い" >
+                                <f:ajax event="blur" execute="uPass uPass2" render="passerror" listener="#{userBean.ajaxPasswordCheck()}"/>     
+                            </p:password>
                         </td>
                         <td>
                             <h:message id="passerror" for="uPass2" class="errMsg"/>
@@ -146,6 +159,8 @@
                 <div class="add-wrap">
                     <p:commandButton class="add-button" value="登録" type="button" onclick="PF('dlg2').show();" />
                 </div>
+                <div class="add-wrap">
+                </div>
                 <p:dialog class="modal-title" header="確認" widgetVar="dlg2" modal="true" height="200">
                     <div class="modal-dialog">
                         <!-- Modal content-->
@@ -153,7 +168,16 @@
                             <h3 class="modal-title">新規登録しますか？</h3>
                         </div>
                         <div class="modal-footer">
-                            <h:commandButton class="btn btn-primary" value="  OK  " action="#{userBean.addUser()}"/>
+                            <p:growl id="growl" life="20000" />
+                            <p:commandButton 
+                                             class="btn btn-primary" 
+                                             value="  OK  " 
+                                             ajax="false"
+                                             update="growl"
+                                             action="#{userBean.addUser()}"
+                                             onclick="PF('dlg2').hide()"
+                                             oncomplete="#{userBean.nextIndexPage()}"
+                                             />
                             <h:commandButton class="btn" value="キャンセル" action="#"/>
                         </div>
                     </div>

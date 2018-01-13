@@ -154,6 +154,14 @@
                     </div>
                 </div>
                 <div class="top_push"></div>
+                <!-- アイドルモニタ -->
+                <p:idleMonitor timeout="2000" onidle="idleDlg.show()" />
+<!--                <p:confirmDialog widgetVar="idleDlg" message="残りxx分でログアウトします。" 
+                                 btnFirstValue="はい" btnSecondValue="いいえ" btnFirstActionListener="this.hide()"/>-->
+                <p:confirmDialog widgetVar="idleDlg" global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
             </ui:define>
         </ui:composition>
     </h:body>
