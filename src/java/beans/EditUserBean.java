@@ -7,10 +7,12 @@ package beans;
 
 import ejb.UserDb;
 import entity.UserModel;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Inject;
 
 /**
@@ -18,8 +20,8 @@ import javax.inject.Inject;
  * @author yuichi_develop
  */
 @Named(value = "editUserBean")
-@RequestScoped
-public class EditUserBean {
+@SessionScoped
+public class EditUserBean implements Serializable{
 
     private String nowName;
     private String newName;
@@ -144,9 +146,11 @@ public class EditUserBean {
     //*** 新しいパスワードで当該ユーザ情報を更新するメソッド ***//
     public void updatePassword() throws NoSuchAlgorithmException{
         System.out.println("beans.EditUserBean.updatePassword()");
+        System.out.println(newPassword);
         UserModel um = userDb.findUser(userBean.getU_Id());
         if (um != null){
             um.setU_pass(util.Util.returnSHA256(newPassword));
+            userDb.merge(um);
         }
     }
     
