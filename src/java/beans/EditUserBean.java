@@ -161,7 +161,14 @@ public class EditUserBean implements Serializable{
         if (um != null){
             um.setU_tel(newTel);
             userDb.merge(um);
+            
+            addMessage("電話番号の変更が完了しました");
+            userBean.setU_tel(newTel);
+            newTel = "";
+            
+            return;
         }
+        addMessage("変更できませんでした");
     }
     
     //*** 新しいパスワードで当該ユーザ情報を更新するメソッド ***//
