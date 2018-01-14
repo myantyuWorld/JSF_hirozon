@@ -13,7 +13,11 @@ import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *  アカウント編集に使用するUserBeanの代わり・照合用クラス
@@ -24,12 +28,15 @@ import javax.inject.Inject;
 public class EditUserBean implements Serializable{
 
     private String nowName;
+    @NotEmpty(message = "空欄です")
     private String newName;
     private String nowMailAddr;
+    @Pattern(regexp = "^.*@.*\\..*$|^.*@.*\\..*\\..*$|^.*@.*\\..*\\..*\\..*$", message = "メールアドレスの形式が正しくありません")
     private String newMailAddr;
     private String nowTel;
     private String newTel;
     private String nowPassword;
+    @NotEmpty(message = "パスワード 未入力です！")
     private String newPassword;
     private String newPassword2;
     private String loginId;
@@ -120,7 +127,11 @@ public class EditUserBean implements Serializable{
         if (um != null){
             um.setU_name(newName);
             userDb.merge(um);
+            
+            addMessage("名前の変更が完了しました");
+            return;
         }
+        addMessage("変更できませんでした");
     }
     
     //*** 新しいメールアドレスで当該ユーザ情報を更新するメソッド ***//
@@ -165,6 +176,10 @@ public class EditUserBean implements Serializable{
         }
     }
     
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
     
     
 }

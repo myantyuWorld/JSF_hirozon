@@ -1,0 +1,73 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://primefaces.org/ui"
+      xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/temp/_template.xhtml">
+            <ui:define name ="content">
+                <!--＃ここに実装-->
+                <div class="my-main-wrap">
+                    <div class="tabs">
+                        <input id="all" type="radio" name="tab_item" checked="true"/>
+                        <label class="tab_item" for="all">名前</label>
+                        <input id="programming" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="programming">メールアドレス</label>
+                        <input id="design" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="design">電話番号</label>
+                        <input id="pass" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="pass">パスワード</label>
+                        <input id="address" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="address">住所変更</label>
+                        <input id="unsubscribe" type="radio" name="tab_item"/>
+                        <label class="tab_item" for="unsubscribe">退会</label>
+
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        <!--名前の変更がここに入ります-->
+                        <div class="tab_content" id="all_content">
+                            <div class="tab_content_description">
+                                <h:form>
+                                    <p class="c-txtsp">
+                                        <h1>名前変更</h1>
+                                        <div class="tab_content_buhin">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="nowName" >現在の名前</label>
+                                                <div class="col-sm-5">
+                                                    <h:outputText  id="bename"  value="#{userBean.u_name}"  />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="newName" >新しい名前</label>
+                                                <div class="col-sm-5">
+                                                    <h:inputText styleClass="form-control" id="newname" 
+                                                                 value="#{editUserBean.newName}" 
+                                                                 p:placeholder="新しい名前を入力してください" 
+                                                                 required="true"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4 col-sm-5">
+                                            <pt:growl id="growl" life="5000" />
+                                            <pt:commandButton value="変更" action="#{editUserBean.updateName()}"
+                                                              class="btn btn-primary"
+                                                              ajax="false"
+                                                              update="growl"
+                                                              />
+                                        </div>
+                                    </p>
+                                </h:form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+
