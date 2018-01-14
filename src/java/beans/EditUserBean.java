@@ -129,6 +129,9 @@ public class EditUserBean implements Serializable{
             userDb.merge(um);
             
             addMessage("名前の変更が完了しました");
+            userBean.setU_name(newName);
+            newName = "";
+            
             return;
         }
         addMessage("変更できませんでした");

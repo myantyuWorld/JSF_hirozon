@@ -45,7 +45,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4" for="newName" >新しい名前</label>
                                                 <div class="col-sm-5">
-                                                    <h:inputText styleClass="form-control" id="newname" 
+                                                    <h:inputText styleClass="form-control" id="newName" 
                                                                  value="#{editUserBean.newName}" 
                                                                  p:placeholder="新しい名前を入力してください" 
                                                                  required="true"/>
@@ -56,13 +56,17 @@
                                             <pt:growl id="growl" life="5000" />
                                             <pt:commandButton value="変更" action="#{editUserBean.updateName()}"
                                                               class="btn btn-primary"
-                                                              ajax="false"
+                                                              ajax="true"
                                                               update="growl"
+                                                              oncomplete="#{userBean.nextAccount()}"
                                                               />
                                         </div>
                                     </p>
                                 </h:form>
                             </div>
+                            <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                            
+                            
                         </div>
                     </div>
                 </div>
