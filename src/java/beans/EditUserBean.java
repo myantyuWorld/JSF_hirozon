@@ -144,7 +144,14 @@ public class EditUserBean implements Serializable{
         if (um != null){
             um.setU_mailaddr(newMailAddr);
             userDb.merge(um);
+            
+            addMessage("メールアドレスの変更が完了しました");
+            userBean.setU_mailaddr(newMailAddr);
+            newMailAddr = "";
+            
+            return;
         }
+        addMessage("変更できませんでした");
     }
     
     //*** 新しい電話番号で当該ユーザ情報を更新するメソッド ***//

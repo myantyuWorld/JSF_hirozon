@@ -30,6 +30,7 @@
 
                         <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <!--名前の変更がここに入ります-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <div class="tab_content" id="all_content">
                             <div class="tab_content_description">
                                 <h:form>
@@ -48,7 +49,10 @@
                                                     <h:inputText styleClass="form-control" id="newName" 
                                                                  value="#{editUserBean.newName}" 
                                                                  p:placeholder="新しい名前を入力してください" 
-                                                                 required="true"/>
+                                                                 required="true">
+                                                        <f:ajax event="blur" execute="@this" render="nameerror"/>
+                                                    </h:inputText>
+                                                     <h:message for="newName" id="nameerror" styleClass="errMsg"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -64,10 +68,52 @@
                                     </p>
                                 </h:form>
                             </div>
-                            <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
-                            
-                            
                         </div>
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        
+                        
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        <!--メールアドレスの内容がここに入ります-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        <div class="tab_content" id="programming_content">
+                            <div class="tab_content_description">
+                                <h:form>
+                                    <p class="c-txtsp">
+                                        <h1>メールアドレス</h1>
+                                        <div class="tab_content_buhin">
+
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" >現在のメールアドレス</label>
+                                                <div class="col-sm-5">
+                                                    <h:outputText styleClass="" id="bemail" value="#{userBean.u_mailaddr}" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" >新しいメールアドレス</label>
+                                                <div class="col-sm-5">
+                                                    <h:inputText  styleClass="form-control" id="newmail" value="#{editUserBean.newMailAddr}" p:placeholder="新しいメールアドレスを入力してください">
+                                                        <f:ajax event="blur" execute="@this" render="newmailerror" />
+                                                    </h:inputText>
+                                                    <h:message for="newmail" id="newmailerror" style="color: tomato" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4 col-sm-5">
+                                            <pt:growl id="growl" life="5000" />
+                                            <pt:commandButton value="変更" action="#{editUserBean.updateMailAddr()}"
+                                                              class="btn btn-primary"
+                                                              ajax="true"
+                                                              update="growl"
+                                                              oncomplete="#{userBean.nextAccount()}"
+                                                              />
+                                        </div>
+                                    </p>
+                                </h:form>
+                            </div>
+                        </div>
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        
+                        
                     </div>
                 </div>
             </ui:define>
