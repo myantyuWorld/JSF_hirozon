@@ -52,7 +52,6 @@
                                                                  required="true">
                                                         <f:ajax event="blur" execute="@this" render="nameerror"/>
                                                     </h:inputText>
-                                                    <h:message for="newName" id="nameerror" styleClass="errMsg"/>
                                                 </div>
                                             </div>
                                         </div>
@@ -94,7 +93,6 @@
                                                     <h:inputText  styleClass="form-control" id="newmail" value="#{editUserBean.newMailAddr}" p:placeholder="新しいメールアドレスを入力してください">
                                                         <f:ajax event="blur" execute="@this" render="newmailerror" />
                                                     </h:inputText>
-                                                    <h:message for="newmail" id="newmailerror" style="color: tomato" />
                                                 </div>
                                             </div>
                                         </div>
@@ -139,7 +137,6 @@
                                                                  >
                                                         <f:ajax event="blur" execute="@this" render="newtelerror"/>
                                                     </h:inputText>
-                                                    <h:message for="newtel" id="newtelerror" style="color: tomato" />
                                                 </div>
                                             </div>
                                         </div>
@@ -155,13 +152,62 @@
                                     </p>
                                 </h:form>
                             </div>
+                        </div>
                             <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
 
-                            
-                            
+
+                            <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                            <!--パスワード変更の内容がここに入ります-->
+                            <div class="tab_content" id="pass_content">
+                                <div class="tab_content_description">
+                                    <h:form>
+                                        <p class="c-txtsp">
+                                            <h1>パスワード変更</h1>
+                                            <div class="tab_content_buhin">
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">現在のパスワード</label>
+                                                    <div class="col-sm-5">
+                                                        <h:inputSecret styleClass="form-control" id="bepass" value="#{editUserBean.loginPass}" p:placeholder="現在使用しているパスワードを入力してください"/>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label col-sm-4">新しいパスワード</label>
+                                                    <div class="col-sm-5">
+                                                        <pt:password id="pswd2" maxlength="10" feedback="true" value="#{editUserBean.newPassword}"
+                                                                     promptLabel="入力して下さい" weakLabel="パスワード強度：弱い" 
+                                                                     goodLabel="パスワード強度：普通" strongLabel="パスワード強度：強い" 
+                                                                     styleClass="form-control">
+                                                        </pt:password>
+                                                    </div>
+                                                </div>
+                                                <!--                                        <div class="form-group">
+                                                                                            <label class="control-label col-sm-4">再入力</label>
+                                                                                            <div class="col-sm-5">
+                                                                                                <h:inputSecret styleClass="form-control" id="newpasscmp" value="#{editUserBean.newPassword2}" p:placeholder="再度入力してください">
+                                                                                                    <f:ajax event="blur" execute="newpass newpasscmp" render="newpasserror" listener="#"/>
+                                                                                                </h:inputSecret>
+                                                                                                <h:outputText style="color: tomato" id="newpasserror" />
+                                                                                            </div>
+                                                                                        </div>-->
+                                            </div>
+                                            <div class="col-sm-offset-4 col-sm-5">
+                                                <pt:growl id="growl" life="5000" />
+                                                <pt:commandButton value="変更" action="#{editUserBean.updatePassword()}"
+                                                                  class="btn btn-primary"
+                                                                  ajax="true"
+                                                                  update="growl"
+                                                                  oncomplete="#{userBean.nextAccount()}"
+                                                                  />
+                                            </div>
+                                        </p>
+                                    </h:form>
+                                </div>
+                            </div>
 
 
-                        </div>
+
+
+                        
                     </div>
                 </div>
             </ui:define>

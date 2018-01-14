@@ -179,7 +179,13 @@ public class EditUserBean implements Serializable{
         if (um != null){
             um.setU_pass(util.Util.returnSHA256(newPassword));
             userDb.merge(um);
+            
+            addMessage("パスワードの変更が完了しました");
+            newPassword = "";
+            
+            return;
         }
+        addMessage("変更できませんでした");
     }
     
     
