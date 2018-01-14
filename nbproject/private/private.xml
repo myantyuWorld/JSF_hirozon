@@ -3,8 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/G:/Hirozon/web/account.xhtml</file>
-            <file>file:/G:/Hirozon/web/__member.xhtml</file>
+            <file>file:/F:/Hirozon/web/index.xhtml</file>
+            <file>file:/F:/Hirozon/web/account2.xhtml</file>
+            <file>file:/F:/Hirozon/web/WEB-INF/web.xml</file>
+            <file>file:/F:/Hirozon/src/java/beans/UserBean.java</file>
+            <file>file:/F:/Hirozon/web/new_regist.xhtml</file>
+            <file>file:/F:/Hirozon/src/java/beans/EditUserBean.java</file>
+            <file>file:/F:/Hirozon/web/mypage.xhtml</file>
+            <file>file:/F:/Hirozon/src/java/beans/SuperBean.java</file>
+            <file>file:/F:/Hirozon/src/java/beans/LoginBean.java</file>
+            <file>file:/F:/Hirozon/web/account.xhtml</file>
         </group>
     </open-files>
 </project-private>
