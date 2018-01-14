@@ -6,6 +6,7 @@
 package beans;
 
 import ejb.UserDb;
+import ejb.ZipCodeDb;
 import entity.UserModel;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -41,12 +42,53 @@ public class EditUserBean implements Serializable{
     private String newPassword2;
     private String loginId;
     private String loginPass;
+    private String newPost;
+    private String newPre;
+    private String newAddress;
+    private String newMansion;
+
+    public String getNewPre() {
+        return newPre;
+    }
+
+    public void setNewPre(String newPre) {
+        this.newPre = newPre;
+    }
+
+    public String getNewAddress() {
+        return newAddress;
+    }
+
+    public void setNewAddress(String newAddress) {
+        this.newAddress = newAddress;
+    }
+
+    public String getNewMansion() {
+        return newMansion;
+    }
+
+    public void setNewMansion(String newMansion) {
+        this.newMansion = newMansion;
+    }
+    
+    
+
+    public String getNewPost() {
+        return newPost;
+    }
+
+    public void setNewPost(String newPost) {
+        this.newPost = newPost;
+    }
     
     @Inject
     UserBean userBean;
     
     @EJB
     UserDb userDb;
+    
+    @EJB
+    ZipCodeDb codeDb;
     /**
      * Creates a new instance of EditUserBean
      */
@@ -188,6 +230,39 @@ public class EditUserBean implements Serializable{
         addMessage("変更できませんでした");
     }
     
+    //***  ***//
+    public void updatePostAddr() {
+        System.out.println("beans.EditUserBean.updatePostAddr()");
+        
+        UserModel um = userDb.findUser(userBean.getU_Id());
+        if (um != null){
+            um.setU_post(newPost);
+            um.setU_address(newPre + newAddress + newMansion);
+            userDb.merge(um);
+            
+            userBean.setU_post(newPost);
+            userBean.setU_address(newPre + newAddress + newMansion);
+            addMessage("住所変更が完了しました");
+            newPost = "";
+            newPre = "";
+            newAddress = "";
+            newMansion = "";
+            
+            return ;
+        }
+        addMessage("変更できませんでした");
+    }
+    
+    //*** Ajax--郵便番号から住所を検索するメソッド ***//
+    public void ajaxSearchZipCode() {
+        System.out.println("beans.EditUserBean.ajaxSearchZipCode()");
+        System.out.println(newPost);
+
+        codeDb.searchZipInfo(newPost).forEach(d -> {
+            this.newPre = d.getPref();                                         // 県名セット
+            this.newAddress = d.getCity() + d.getStreet();        // 県名以降の住所をセット
+        });
+    }
     
     //*** 退会用メソッド ***//
     public void unsubscribe(){
