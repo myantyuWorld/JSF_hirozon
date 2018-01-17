@@ -18,16 +18,25 @@
                             <div class="his_contents-title">
                                 <h1>注文履歴</h1>
                             </div>
-                            <div class="his_search-period__box">
-                                <select class="his_search-period">
-                                    <!-- 期間は勝手に決めて -->
-                                    <option value="">一か月</option>
-                                    <option value="">一か月</option>
-                                    <option value="">一か月</option>
-                                    <option value="">一か月</option>
-                                    <option value="">一か月</option>
-                                </select>
-                            </div>
+                            <h:form class="form-inline">
+                                <div class="form-group">
+                                    <div class="his_search-period__box" >
+                                        <h:selectOneMenu value="#{userBean.searchPeriod}"
+                                                         class="his_search-period"
+                                                         style="height: 50px; width: 100px; font-size: 20px;">
+                                            <f:selectItem itemLabel="3日" itemValue="3" />
+                                            <f:selectItem itemLabel="1週間" itemValue="7" />
+                                            <f:selectItem itemLabel="3週間" itemValue="21" />
+                                            <f:selectItem itemLabel="1か月" itemValue="30" />
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <h:commandButton action="#{userBean.popHistoryPeriod()}"
+                                                     value="検索"
+                                                     class="btn btn-primary"/>
+                                </div>
+                            </h:form>
                         </div>
                         <div class="his_history-search__block">
                             <div class="his_history-search__item">
@@ -35,7 +44,7 @@
                                 <input type="text" class="his_history-search__text"/>
                             </div>
                             <div class="his_search-btn__box">
-                                <input type="button" class="his_history-search__btn" value="履歴検索"/>
+                                <input type="button" class="btn btn-primary" value="検索"/>
                             </div>
                         </div>
                     </div>
