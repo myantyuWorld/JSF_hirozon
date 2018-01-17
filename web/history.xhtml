@@ -19,14 +19,19 @@
                                 <h1>注文履歴</h1>
                             </div>
                             <div class="his_search-period__box">
-                                <select class="his_search-period">
-                                    <!-- 期間は勝手に決めて -->
-                                    <option value="">一か月</option>
-                                    <option value="">一か月</option>
-                                    <option value="">一か月</option>
-                                    <option value="">一か月</option>
-                                    <option value="">一か月</option>
-                                </select>
+                                <h:form>
+                                    <p:selectOneMenu id="console" 
+                                                     value="#{userBean.searchPeriod}" 
+                                                     style="width:125px"
+                                                     valueChangeListener="#{userBean.popHistoryPeriod()}"
+                                                     onchange="submit()"
+                                                     >
+                                        <f:selectItem itemLabel="3日" itemValue="3" />
+                                        <f:selectItem itemLabel="1週間" itemValue="7" />
+                                        <f:selectItem itemLabel="3週間" itemValue="21" />
+                                        <f:selectItem itemLabel="1か月" itemValue="30" />
+                                    </p:selectOneMenu>
+                                </h:form>
                             </div>
                         </div>
                         <div class="his_history-search__block">

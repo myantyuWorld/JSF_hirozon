@@ -24,6 +24,7 @@ import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -54,6 +55,8 @@ public class UserBean extends SuperBean implements Serializable {
     private String u_tel = "";			//*** 電話番号 ***//
     private String u_birth_day = "";		//*** 生年月日 ***//
     private String u_sex = "";			//*** 性別 ***//
+    
+    private String searchPeriod;
     
     //***  ***//
     private Integer cartCount = 1;
@@ -176,6 +179,15 @@ public class UserBean extends SuperBean implements Serializable {
     public void setIdErrorMsg(String idErrorMsg) {
         this.idErrorMsg = idErrorMsg;
     }
+
+    public String getSearchPeriod() {
+        return searchPeriod;
+    }
+
+    public void setSearchPeriod(String searchPeriod) {
+        this.searchPeriod = searchPeriod;
+    }
+    
     
 
     @Override
@@ -186,6 +198,10 @@ public class UserBean extends SuperBean implements Serializable {
     //*** 自分の購入履歴データを取得するメソッド ***//
     public List<HistoryModel> getMyHistory(){
         return historyDb.getAll();
+    }
+    
+    public void popHistoryPeriod(){
+        System.out.println("beans.UserBean.getHistoryPeriod()");
     }
     
     //*** 自分のカートの中身を取得するメソッド ***//
