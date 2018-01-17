@@ -250,6 +250,41 @@
                         <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
 
 
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        <!--退会の内容がここに入ります-->
+                        <div class="tab_content" id="unsubscribe_content">
+                            <div class="tab_content_description">
+                                <h:form>
+                                    <p class="c-txtsp">
+                                        <h1>退会</h1>
+                                        <div class="tab_content_buhin">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">メールアドレス</label>
+                                                <div class="col-sm-5">
+                                                    <h:inputText styleClass="form-control" value="#{editUserBean.nowMailAddr}"  p:placeholder="ログインで使用するIDを入力してください" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">パスワード</label>
+                                                <div class="col-sm-5">
+                                                    <h:inputSecret styleClass="form-control" value="#{editUserBean.loginPass}" p:placeholder="ログインで使用するパスワードを入力してください" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-offset-4 col-sm-5">
+                                            <pt:growl id="growl" life="5000" />
+                                            <pt:commandButton value="退会" action="#{editUserBean.unsubscribe()}"
+                                                              class="btn btn-primary"
+                                                              ajax="true"
+                                                              update="growl"
+                                                              oncomplete="#{userBean.nextIndexPage()}"
+                                                              />
+                                        </div>
+                                    </p>
+                                </h:form>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </ui:define>
