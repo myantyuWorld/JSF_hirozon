@@ -202,6 +202,7 @@ public class UserBean extends SuperBean implements Serializable {
     
     public void popHistoryPeriod(){
         System.out.println("beans.UserBean.getHistoryPeriod()");
+        System.out.println("period : " + searchPeriod);
     }
     
     //*** 自分のカートの中身を取得するメソッド ***//
