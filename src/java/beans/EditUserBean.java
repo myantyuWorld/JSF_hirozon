@@ -267,11 +267,18 @@ public class EditUserBean implements Serializable{
     //*** 退会用メソッド ***//
     public void unsubscribe(){
         System.out.println("beans.EditUserBean.unsubscribe()");
-        UserModel um = userDb.loginCheck(loginId, loginPass);
+//        UserModel um = userDb.loginCheck(userBean.getU_Id(), loginPass);
+        UserModel um = userDb.findUser(userBean.getU_Id());
         if (um != null){
             // 退会ー＞当該ユーザの削除を実施
             userDb.unsubscribe(um);
+            
+            addMessage("退会処理が完了しました");
+            nowMailAddr = "";
+            loginPass = "";
+            return;
         }
+        addMessage("エラーが発生しました");
     }
     
     public void addMessage(String summary) {
