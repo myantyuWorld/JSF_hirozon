@@ -5,6 +5,7 @@
  */
 package beans;
 
+import com.sun.xml.wss.util.DateUtils;
 import ejb.CartDb;
 import ejb.HistoryDb;
 import ejb.UserDb;
@@ -18,6 +19,10 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -58,6 +63,7 @@ public class UserBean extends SuperBean implements Serializable {
     
     private String searchPeriod;
     
+    private List<HistoryModel> list;
     //***  ***//
     private Integer cartCount = 1;
     private String errMsgPassGenerate;
@@ -156,38 +162,36 @@ public class UserBean extends SuperBean implements Serializable {
     public void setU_sex(String u_sex) {
         this.u_sex = u_sex;
     }
-
     public Integer getCartCount() {
         return cartCount;
     }
     public void setCartCount(Integer cartCount) {
         this.cartCount = cartCount;
     }
-
     public String getErrMsgPassGenerate() {
         return errMsgPassGenerate;
     }
-
     public void setErrMsgPassGenerate(String errMsgPassGenerate) {
         this.errMsgPassGenerate = errMsgPassGenerate;
     }
-
     public String getIdErrorMsg() {
         return idErrorMsg;
     }
-
     public void setIdErrorMsg(String idErrorMsg) {
         this.idErrorMsg = idErrorMsg;
     }
-
     public String getSearchPeriod() {
         return searchPeriod;
     }
-
     public void setSearchPeriod(String searchPeriod) {
         this.searchPeriod = searchPeriod;
     }
-    
+    public List<HistoryModel> getList() {
+        return list;
+    }
+    public void setList(List<HistoryModel> list) {
+        this.list = list;
+    }
     
 
     @Override
@@ -196,13 +200,32 @@ public class UserBean extends SuperBean implements Serializable {
     }
     
     //*** 自分の購入履歴データを取得するメソッド ***//
-    public List<HistoryModel> getMyHistory(){
-        return historyDb.getAll();
+    public String popMyHistory(){
+        list = historyDb.getAll(this.u_Id);
+        
+        return nextMyHistory();
     }
     
-    public void popHistoryPeriod(){
+    //*** 指定した期間の履歴を出力するメソッド ***//
+    public String  popHistoryPeriod() throws ParseException{
         System.out.println("beans.UserBean.getHistoryPeriod()");
         System.out.println("period : " + searchPeriod);
+        
+        // 現在日時取得
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar now = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.add(Calendar.DATE, Integer.parseInt("-" + searchPeriod));
+        String nowDay = sdf.format(now.getTime());
+        String endDay = sdf.format(end.getTime());
+        
+        System.out.println(nowDay + " : " + endDay);
+        Date sDay = sdf.parse(nowDay);
+        Date eDay = sdf.parse(endDay);
+        
+        this.list =  historyDb.popHistoryPeriod(u_Id, sDay, eDay);
+        
+        return nextMyHistory();
     }
     
     //*** 自分のカートの中身を取得するメソッド ***//

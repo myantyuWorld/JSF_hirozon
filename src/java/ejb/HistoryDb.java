@@ -8,6 +8,7 @@ package ejb;
 import entity.BuyHistoryModel;
 import entity.CartModel;
 import entity.HistoryModel;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -23,12 +24,24 @@ public class HistoryDb {
     @PersistenceContext(unitName = "HIROZONPU")
     private EntityManager em;
     
-    public List<HistoryModel> getAll(){
+    //*** 購入履歴全件取得 ***//
+    public List<HistoryModel> getAll(String uId){
         return em.createNamedQuery("History.All", HistoryModel.class)
-            .setMaxResults(10)
+//            .setMaxResults(10)
+            .setParameter(1, uId)           // userId
             .getResultList();
     }
     
+    //*** 購入履歴 期間指定取得 ***//
+    public List<HistoryModel> popHistoryPeriod(String uId, Date start, Date end){
+        return em.createNamedQuery("History.HistoryPeriod", HistoryModel.class)
+                .setParameter(1, uId)       // userId
+                .setParameter(2, start)     // startDay
+                .setParameter(3, end)      // endDay
+                .getResultList();
+    }
+    
+    //*** 新規登録 ***//
     public void persist(BuyHistoryModel buyHistoryModel){
         em.persist(buyHistoryModel);
     }
