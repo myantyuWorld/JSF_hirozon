@@ -36,8 +36,8 @@ public class HistoryDb {
     public List<HistoryModel> popHistoryPeriod(String uId, Date start, Date end){
         return em.createNamedQuery("History.HistoryPeriod", HistoryModel.class)
                 .setParameter(1, uId)       // userId
-                .setParameter(2, start)     // startDay
-                .setParameter(3, end)      // endDay
+                .setParameter(2, end)      // endDay
+                .setParameter(3, start)     // startDay
                 .getResultList();
     }
     

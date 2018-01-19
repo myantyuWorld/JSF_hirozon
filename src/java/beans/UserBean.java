@@ -210,6 +210,7 @@ public class UserBean extends SuperBean implements Serializable {
     public String  popHistoryPeriod() throws ParseException{
         System.out.println("beans.UserBean.getHistoryPeriod()");
         System.out.println("period : " + searchPeriod);
+        System.out.println("userId : " + this.u_Id);
         
         // 現在日時取得
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
