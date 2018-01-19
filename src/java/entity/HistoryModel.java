@@ -27,6 +27,8 @@ import util.Util;
     @NamedQuery(name = "History.All", query = "select h from HistoryModel h where h.u_id = ?1  order by h.datetime desc"),
     @NamedQuery(name = "History.HistoryPeriod", query = "select h from HistoryModel h "
             + "where h.u_id = ?1 and h.datetime BETWEEN ?2 and ?3 order by h.datetime desc"),
+    @NamedQuery(name = "History.HistoryWord", query = "select h from HistoryModel h "
+            + "where h.u_id = ?1 and h.p_name like ?2 order by h.datetime desc"),
 })
 public class HistoryModel implements Serializable {
     

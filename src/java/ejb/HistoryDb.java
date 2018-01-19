@@ -40,6 +40,15 @@ public class HistoryDb {
                 .setParameter(3, start)     // startDay
                 .getResultList();
     }
+   
+    //*** 購入履歴 あいまい検索：現状は商品名だけのあいまい検索 ***//
+    public List<HistoryModel> popHistoryWord(String uId, String pName){
+        return em.createNamedQuery("History.HistoryWord", HistoryModel.class)
+                .setParameter(1, uId)
+                .setParameter(2, "%" + pName + "%")
+                .getResultList();
+    }
+   
     
     //*** 新規登録 ***//
     public void persist(BuyHistoryModel buyHistoryModel){

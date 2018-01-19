@@ -5,9 +5,6 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
-    <h:head>
-        <title>HIROZON|購入履歴</title>
-    </h:head>
     <h:body>
         <ui:composition template="/temp/_template.xhtml">
             <ui:define name ="content">
@@ -20,6 +17,9 @@
                             </div>
                         </div>
                     </div>
+                    <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                    <!--期間選択-->
+                    <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                     <div class="his_contents-header">
                         <h:form class="form-inline">
                             <div class="form-group">
@@ -44,16 +44,30 @@
                                                  class="btn btn-primary"/>
                             </div>
                         </h:form>
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        
+                        
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        <!--注文履歴のあいまい検索-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <div class="his_history-search__block">
-                            <div class="his_history-search__item">
-                                <i class="his_fa fa-search"></i>
-                                <input type="text" class="his_history-search__text"/>
+                            <h:form class="form-inline">
+                            <div class="form-group">
+                                <h:inputText class="form-control" value="#{userBean.searchWord}"/>
                             </div>
-                            <div class="his_search-btn__box">
-                                <input type="button" class="btn btn-primary" value="検索"/>
+                            <div class="form-group">
+                                <h:commandButton class="btn btn-primary" 
+                                                 value="検索" 
+                                                 action="#{userBean.popHistoryWord()}"
+                                                 />
                             </div>
+                            </h:form>
                         </div>
                     </div>
+                    <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                    
+                    
+                    
                     <ui:repeat value="#{userBean.list}" var="h">
                         <!-- ***1*** 繰り返し項目 -->
 

@@ -62,6 +62,7 @@ public class UserBean extends SuperBean implements Serializable {
     private String u_sex = "";			//*** 性別 ***//
     
     private String searchPeriod;
+    private String searchWord;
     
     private List<HistoryModel> list;
     //***  ***//
@@ -192,7 +193,12 @@ public class UserBean extends SuperBean implements Serializable {
     public void setList(List<HistoryModel> list) {
         this.list = list;
     }
-    
+    public String getSearchWord() {
+        return searchWord;
+    }
+    public void setSearchWord(String searchWord) {
+        this.searchWord = searchWord;
+    }
 
     @Override
     public String toString() {
@@ -226,6 +232,16 @@ public class UserBean extends SuperBean implements Serializable {
         
         this.list =  historyDb.popHistoryPeriod(u_Id, sDay, eDay);
         
+        return nextMyHistory();
+    }
+    
+    //*** あいまい検索で履歴を絞り込むメソッド ***//
+    public String popHistoryWord() {
+        System.out.println("beans.UserBean.popHistoryWord()");
+        System.out.println("searchWord : " + searchWord);
+        
+        //*** 商品名であいまい検索する ***//
+        list = historyDb.popHistoryWord(u_Id, searchWord);
         return nextMyHistory();
     }
     
