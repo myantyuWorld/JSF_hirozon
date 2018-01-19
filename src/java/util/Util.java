@@ -9,6 +9,8 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -81,5 +83,9 @@ public class Util {
     //*** 引数の数値を日本円表記の文字列で返すメソッド ***//
     public static String convartjapanPrice(Integer price){
         return NumberFormat.getCurrencyInstance(Locale.JAPAN).format(price);
+    }
+    
+    public static Date localDate2Date(final LocalDate localDate) {
+        return Date.from(localDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
     }
 }

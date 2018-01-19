@@ -45,6 +45,7 @@
   color: #3366ff;
   border: solid 2px #3366ff;
   border-radius: 3px;
+  margin-right: 5px;
   transition: 0.4s;
 }
 
@@ -182,5 +183,13 @@
   }
   .his_search-period__box {
     margin-bottom: 5px;
+  }
+  
+  .his_ {
+      font-size: 20px;
+  }
+  
+  label {
+      font-size: 20px;
   }
 }

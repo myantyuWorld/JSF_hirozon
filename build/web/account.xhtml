@@ -28,48 +28,58 @@
                         <input id="unsubscribe" type="radio" name="tab_item"/>
                         <label class="tab_item" for="unsubscribe">退会</label>
 
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <!--名前の変更がここに入ります-->
                         <div class="tab_content" id="all_content">
                             <div class="tab_content_description">
+                                    <h:form>
                                 <p class="c-txtsp">
-                                    <h1>名前変更</h1>
-                                    <div class="tab_content_buhin">
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="nowName" >現在の名前</label>
-                                            <div class="col-sm-5">
-                                                <h:outputText  id="bename"  value="#{userBean.u_name}" />
+                                        <h1>名前変更</h1>
+                                        <div class="tab_content_buhin">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="nowName" >現在の名前</label>
+                                                <div class="col-sm-5">
+                                                    <h:outputText  id="bename"  value="#{userBean.u_name}"  />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4" for="newName" >新しい名前</label>
+                                                <div class="col-sm-5">
+                                                    <h:inputText styleClass="form-control" id="newname" 
+                                                                 value="#{editUserBean.newName}" 
+                                                                 p:placeholder="新しい名前を入力してください" 
+                                                                 required="true"/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4" for="newName" >新しい名前</label>
-                                            <div class="col-sm-5">
-                                                <h:inputText styleClass="form-control" id="newname" value="#{editUserBean.newName}" p:placeholder="新しい名前を入力してください" >
-                                                    <h:message for="newname" id="newnameerror" style="" />
-                                                </h:inputText>
-                                            </div>
+                                        <div class="col-sm-offset-4 col-sm-5">
+                                            <pt:growl id="growl" life="5000" />
+                                            <pt:commandButton value="変更" action="#{editUserBean.updateName()}"
+                                                              class="btn btn-primary"
+                                                              ajax="false"
+                                                              update="growl"
+                                                              />
                                         </div>
-                                    </div>
-                                    <div class="col-sm-offset-4 col-sm-5">
-                                        <h:commandButton value="変更" onclick="PF('dlgName').show();" styleClass="btn btn-danger"/>
-                                    </div>
                                 </p>
+                                    </h:form>
                             </div>
                         </div>
-                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgName" modal="true" height="250">
-                            <div class="modal-dialog">
-                                <!-- Modal content-->
-                                <div class="modal-header">
-                                    <h3 class="modal-title">変更しますか？</h3>
-                                </div>
-                                <div class="modal-footer">
-                                    <h:form>
-                                        <h:commandButton class="btn btn-primary" value="  OK  " action="#{editUserBean.updateName()}"/>
-                                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgName').hide();"/>
-                                    </h:form>
-                                </div>
-                            </div>
-                        </pt:dialog>
+                        <!--                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgName" modal="true" height="250">
+                                                    <div class="modal-dialog">
+                                                         Modal content
+                                                        <div class="modal-header">
+                                                            <h3 class="modal-title">変更しますか？</h3>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                                <h:commandButton class="btn btn-primary" value="  OK  " action="#{editUserBean.updateName()}"/>
+                                                                <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgName').hide();"/>
+                                                        </div>
+                                                    </div>
+                                                </pt:dialog>-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
 
+
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <!--メールアドレスの内容がここに入ります-->
                         <div class="tab_content" id="programming_content">
                             <div class="tab_content_description">
@@ -99,9 +109,9 @@
                                 </p>
                             </div>
                         </div>
-                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgMail" modal="true" height="250">
+<!--                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgMail" modal="true" height="250">
                             <div class="modal-dialog">
-                                <!-- Modal content-->
+                                 Modal content
                                 <div class="modal-header">
                                     <h3 class="modal-title">変更しますか？</h3>
                                 </div>
@@ -113,8 +123,11 @@
                                     </h:form>
                                 </div>
                             </div>
-                        </pt:dialog>
+                        </pt:dialog>-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
 
+
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <!--電話番号変更の内容がここに入ります-->
                         <div class="tab_content" id="design_content">
                             <div class="tab_content_description">
@@ -144,9 +157,9 @@
                                 </p>
                             </div>
                         </div>
-                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgTel" modal="true" height="250">
+<!--                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgTel" modal="true" height="250">
                             <div class="modal-dialog">
-                                <!-- Modal content-->
+                                 Modal content
                                 <div class="modal-header">
                                     <h3 class="modal-title">変更しますか？</h3>
                                 </div>
@@ -158,15 +171,17 @@
                                     </h:form>
                                 </div>
                             </div>
-                        </pt:dialog>
+                        </pt:dialog>-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
 
+
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <!--パスワード変更の内容がここに入ります-->
                         <div class="tab_content" id="pass_content">
                             <div class="tab_content_description">
                                 <p class="c-txtsp">
                                     <h1>パスワード変更</h1>
                                     <div class="tab_content_buhin">
-
                                         <div class="form-group">
                                             <label class="control-label col-sm-4">現在のパスワード</label>
                                             <div class="col-sm-5">
@@ -176,18 +191,22 @@
                                         <div class="form-group">
                                             <label class="control-label col-sm-4">新しいパスワード</label>
                                             <div class="col-sm-5">
-                                                <h:inputSecret styleClass="form-control" id="newpass" value="#{editUserBean.newPassword}" p:placeholder="新しいパスワードを入力してください" />
+                                                <pt:password id="pswd2" maxlength="10" feedback="true" value="#{editUserBean.newPassword}"
+                                                             promptLabel="入力して下さい" weakLabel="パスワード強度：弱い" 
+                                                             goodLabel="パスワード強度：普通" strongLabel="パスワード強度：強い" 
+                                                             styleClass="form-control">
+                                                </pt:password>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="control-label col-sm-4">再入力</label>
-                                            <div class="col-sm-5">
-                                                <h:inputSecret styleClass="form-control" id="newpasscmp" value="#{editUserBean.newPassword2}" p:placeholder="再度入力してください">
-                                                    <f:ajax event="blur" execute="@this" render="newpasserror" listener="#"/>
-                                                </h:inputSecret>
-                                                <h:outputText style="color: tomato" id="newpasserror" />
-                                            </div>
-                                        </div>
+                                        <!--                                        <div class="form-group">
+                                                                                    <label class="control-label col-sm-4">再入力</label>
+                                                                                    <div class="col-sm-5">
+                                                                                        <h:inputSecret styleClass="form-control" id="newpasscmp" value="#{editUserBean.newPassword2}" p:placeholder="再度入力してください">
+                                                                                            <f:ajax event="blur" execute="newpass newpasscmp" render="newpasserror" listener="#"/>
+                                                                                        </h:inputSecret>
+                                                                                        <h:outputText style="color: tomato" id="newpasserror" />
+                                                                                    </div>
+                                                                                </div>-->
                                     </div>
                                     <div class="col-sm-offset-4 col-sm-5">
                                         <h:commandButton value="変更" onclick="PF('dlgPass').show();" styleClass="btn btn-danger"/>
@@ -195,22 +214,24 @@
                                 </p>
                             </div>
                         </div>
-                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgPass" modal="true" height="250">
+<!--                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgPass" modal="true" height="250">
                             <div class="modal-dialog">
-                                <!-- Modal content-->
+                                 Modal content
                                 <div class="modal-header">
                                     <h3 class="modal-title">変更しますか？</h3>
                                 </div>
                                 <div class="modal-footer">
                                     <h:form>
-
                                         <h:commandButton class="btn btn-primary" value="  OK  " action="#{editUserBean.updatePassword()}"/>
                                         <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgPass').hide();"/>
                                     </h:form>
                                 </div>
                             </div>
-                        </pt:dialog>
+                        </pt:dialog>-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
 
+
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <!--住所変更の内容がここに入ります-->
                         <div class="tab_content" id="address_content">
                             <div class="tab_content_description">
@@ -249,9 +270,9 @@
                                 </p>
                             </div>
                         </div>
-                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgAddress" modal="true" height="250">
+<!--                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgAddress" modal="true" height="250">
                             <div class="modal-dialog">
-                                <!-- Modal content-->
+                                 Modal content
                                 <div class="modal-header">
                                     <h3 class="modal-title">変更しますか？</h3>
                                 </div>
@@ -262,8 +283,12 @@
                                     </h:form>
                                 </div>
                             </div>
-                        </pt:dialog>
+                        </pt:dialog>-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
 
+
+
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <!--退会の内容がここに入ります-->
                         <div class="tab_content" id="unsubscribe_content">
                             <div class="tab_content_description">
@@ -289,9 +314,9 @@
                                 </p>
                             </div>
                         </div>
-                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgUnSub" modal="true" height="250">
+<!--                        <pt:dialog class="modal-title" header="確認" widgetVar="dlgUnSub" modal="true" height="250">
                             <div class="modal-dialog">
-                                <!-- Modal content-->
+                                 Modal content
                                 <div class="modal-header">
                                     <h3 class="modal-title">変更しますか？</h3>
                                 </div>
@@ -302,7 +327,8 @@
                                     </h:form>
                                 </div>
                             </div>
-                        </pt:dialog>
+                        </pt:dialog>-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                     </div>
                 </div>
             </ui:define>

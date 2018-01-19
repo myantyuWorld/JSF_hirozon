@@ -51,7 +51,7 @@ public class SuperBean implements Serializable{
     //*** アカウント編集ページへの画面遷移メソッド ***//
     public String nextAccount(){
         System.out.println("beans.SuperBean.nextAccount()");
-        return "account.xhtml?faces-redirect=true";
+        return "account2.xhtml?faces-redirect=true";
     }
     
     //*** 自分の購入履歴ページへの画面遷移メソッド ***//

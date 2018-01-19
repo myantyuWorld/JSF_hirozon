@@ -6,9 +6,7 @@
 package entity;
 
 import java.io.Serializable;
-import java.text.NumberFormat;
 import java.util.Date;
-import java.util.Locale;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,7 +24,11 @@ import util.Util;
 @Entity
 @Table(name = "v_history")
 @NamedQueries({
-    @NamedQuery(name = "History.All", query = "select h from HistoryModel h order by h.datetime desc"),
+    @NamedQuery(name = "History.All", query = "select h from HistoryModel h where h.u_id = ?1  order by h.datetime desc"),
+    @NamedQuery(name = "History.HistoryPeriod", query = "select h from HistoryModel h "
+            + "where h.u_id = ?1 and h.datetime BETWEEN ?2 and ?3 order by h.datetime desc"),
+    @NamedQuery(name = "History.HistoryWord", query = "select h from HistoryModel h "
+            + "where h.u_id = ?1 and h.p_name like ?2 order by h.datetime desc"),
 })
 public class HistoryModel implements Serializable {
     

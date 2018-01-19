@@ -43,15 +43,35 @@ public class UserDb {
         }
         return um;
     }
+    
+    public UserModel find(String key){
+        System.out.println("ejb.UserDb.find()");
+        return em.find(UserModel.class, key);
+    }
 
     //*** ログインIDから当該ユーザ情報を取得するメソッド ***//
     public UserModel findUser(String loginId){
         return em.createNamedQuery("User.findUser", UserModel.class).setParameter(1, loginId).getSingleResult();
     }
     
+    //***  ***//
+    public UserModel findUser(String uId, String userMailAddr, String loginPass) throws NoSuchAlgorithmException{
+        return em.createNamedQuery("User.unsubscribe", UserModel.class)
+                .setParameter(1, uId)
+                .setParameter(2, userMailAddr)
+                .setParameter(3, util.Util.returnSHA256(loginPass))
+                .getSingleResult();
+    }
+    
+    
     //*** 退会用削除メソッド ***//
     public void unsubscribe(UserModel um){
-        em.remove(um);
+        UserModel model = em.find(UserModel.class, um.getU_id());
+//        em.remove(model);
+        // 実際に消すわけではなくて、フラグをupdateすることで退会とする
+        model.setUserflg(1);
+        
+        em.merge(model);
     }
 
     //*** 更新用メソッド ***//
@@ -65,15 +85,19 @@ public class UserDb {
     }
     
     //*** 新規登録用メソッド ***//
-    public void persist(UserModel um){
+    public String persist(UserModel um){
         System.out.println("ejb.UserDb.persist()");
         try {
             em.persist(um);
         } catch (Exception e){
             System.out.println("errorrrrrrrrrrrrrrrrrrrrrrr!");
             
+            return ERROR;
             // ここでエラーが起きたら、メッセージでも出すようにする
         }
+        return OK;
     }
+    private static final String ERROR = "1";
+    private static final String OK = "0";
     
 }

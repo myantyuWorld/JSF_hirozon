@@ -5,6 +5,7 @@
  */
 package beans;
 
+import com.sun.xml.wss.util.DateUtils;
 import ejb.CartDb;
 import ejb.HistoryDb;
 import ejb.UserDb;
@@ -18,10 +19,17 @@ import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.inject.Inject;
 import javax.validation.constraints.Pattern;
 import org.hibernate.validator.constraints.NotEmpty;
@@ -36,24 +44,31 @@ import util.Util;
 @SessionScoped
 public class UserBean extends SuperBean implements Serializable {
 
+    @NotEmpty(message = "IDを入力してください")
     private String u_Id;			//*** ユーザID ***//
-    private String u_name;		//*** 氏名 ***//
-    private String u_pass;		//*** パスワード（ハッシュ済み） ***//
-    @NotEmpty(message = "未入力です！")
-    private String u_pass2;
+    private String u_name = "";		//*** 氏名 ***//
+    @NotEmpty(message = "パスワード 未入力です！")
+    private String u_pass = "";		//*** パスワード（ハッシュ済み） ***//
+    @NotEmpty(message = "パスワード（再） 未入力です！")
+    private String u_pass2  = "";
     @Pattern(regexp = "^.*@.*\\..*$|^.*@.*\\..*\\..*$|^.*@.*\\..*\\..*\\..*$", message = "メールアドレスの形式が正しくありません")
     private String u_mailaddr;		//*** メールアドレス ***//
-    private String u_post;		//*** 郵便番号 ***//
-    private String u_address;		//*** 住所 ***//
-    private String u_pre;
-    private String u_mansion;
-    private String u_tel;			//*** 電話番号 ***//
-    private String u_birth_day;		//*** 生年月日 ***//
-    private String u_sex;			//*** 性別 ***//
+    private String u_post = "";		//*** 郵便番号 ***//
+    private String u_address = "";		//*** 住所 ***//
+    private String u_pre = "";
+    private String u_mansion = "";
+    private String u_tel = "";			//*** 電話番号 ***//
+    private String u_birth_day = "";		//*** 生年月日 ***//
+    private String u_sex = "";			//*** 性別 ***//
     
+    private String searchPeriod;
+    private String searchWord;
+    
+    private List<HistoryModel> list;
     //***  ***//
     private Integer cartCount = 1;
     private String errMsgPassGenerate;
+    private String idErrorMsg;
     
     @Inject
     ProductBean productBean;
@@ -148,20 +163,41 @@ public class UserBean extends SuperBean implements Serializable {
     public void setU_sex(String u_sex) {
         this.u_sex = u_sex;
     }
-
     public Integer getCartCount() {
         return cartCount;
     }
     public void setCartCount(Integer cartCount) {
         this.cartCount = cartCount;
     }
-
     public String getErrMsgPassGenerate() {
         return errMsgPassGenerate;
     }
-
     public void setErrMsgPassGenerate(String errMsgPassGenerate) {
         this.errMsgPassGenerate = errMsgPassGenerate;
+    }
+    public String getIdErrorMsg() {
+        return idErrorMsg;
+    }
+    public void setIdErrorMsg(String idErrorMsg) {
+        this.idErrorMsg = idErrorMsg;
+    }
+    public String getSearchPeriod() {
+        return searchPeriod;
+    }
+    public void setSearchPeriod(String searchPeriod) {
+        this.searchPeriod = searchPeriod;
+    }
+    public List<HistoryModel> getList() {
+        return list;
+    }
+    public void setList(List<HistoryModel> list) {
+        this.list = list;
+    }
+    public String getSearchWord() {
+        return searchWord;
+    }
+    public void setSearchWord(String searchWord) {
+        this.searchWord = searchWord;
     }
 
     @Override
@@ -170,8 +206,43 @@ public class UserBean extends SuperBean implements Serializable {
     }
     
     //*** 自分の購入履歴データを取得するメソッド ***//
-    public List<HistoryModel> getMyHistory(){
-        return historyDb.getAll();
+    public String popMyHistory(){
+        list = historyDb.getAll(this.u_Id);
+        
+        return nextMyHistory();
+    }
+    
+    //*** 指定した期間の履歴を出力するメソッド ***//
+    public String  popHistoryPeriod() throws ParseException{
+        System.out.println("beans.UserBean.getHistoryPeriod()");
+        System.out.println("period : " + searchPeriod);
+        System.out.println("userId : " + this.u_Id);
+        
+        // 現在日時取得
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Calendar now = Calendar.getInstance();
+        Calendar end = Calendar.getInstance();
+        end.add(Calendar.DATE, Integer.parseInt("-" + searchPeriod));
+        String nowDay = sdf.format(now.getTime());
+        String endDay = sdf.format(end.getTime());
+        
+        System.out.println(nowDay + " : " + endDay);
+        Date sDay = sdf.parse(nowDay);
+        Date eDay = sdf.parse(endDay);
+        
+        this.list =  historyDb.popHistoryPeriod(u_Id, sDay, eDay);
+        
+        return nextMyHistory();
+    }
+    
+    //*** あいまい検索で履歴を絞り込むメソッド ***//
+    public String popHistoryWord() {
+        System.out.println("beans.UserBean.popHistoryWord()");
+        System.out.println("searchWord : " + searchWord);
+        
+        //*** 商品名であいまい検索する ***//
+        list = historyDb.popHistoryWord(u_Id, searchWord);
+        return nextMyHistory();
     }
     
     //*** 自分のカートの中身を取得するメソッド ***//
@@ -259,6 +330,20 @@ public class UserBean extends SuperBean implements Serializable {
        });
     }
     
+    //*** Ajax--ユーザIDの重複をチェックするメソッド ***//
+    public void ajaxUserIdCheck(){
+        System.out.println("beans.UserBean.ajaxUserIdCheck()");
+        System.out.println(this.u_Id);
+        
+        UserModel um = db.find(u_Id);
+        if (um != null){
+            this.idErrorMsg = "IDが重複しています";
+            return ;
+        }
+        
+        this.idErrorMsg = "";
+    }
+    
     //*** 新規登録 ***//
     public String addUser() throws NoSuchAlgorithmException{
         System.out.println("beans.UserBean.addUser()");
@@ -273,9 +358,20 @@ public class UserBean extends SuperBean implements Serializable {
                 u_sex, 
                 u_tel
         );
-        db.persist(um);
-        
-        return nextIndexPage();
+        String result = db.persist(um);
+        if (result.equals("0")){
+            addMessage("ユーザ登録が完了しました");
+            init();
+        } else {
+            addMessage("登録できませんでした");
+        }
+        return "";
+//        return nextIndexPage();
+    }
+    
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
     //*** Beans-->JSへの値渡し reminder.xhtml->handleRequest()参照 ***//
@@ -289,18 +385,35 @@ public class UserBean extends SuperBean implements Serializable {
             errMsgPassGenerate = "そのIDのユーザは存在しません！";
             flg = false;
         } else {
-            String pass = Util.getRandomString(5);
-            um.setU_pass(Util.returnSHA256(pass));
-            System.out.println(pass);
-            System.out.println(Util.returnSHA256(pass));
-            this.u_pass = pass;
-            this.setU_pass(pass);
-//            loginBean.setPass(pass);
-            
+//            this.u_pass = Util.getRandomString(5);
+            System.out.println(this.u_pass);
+            System.out.println(Util.returnSHA256(this.u_pass));
+            um.setU_pass(Util.returnSHA256(this.u_pass));
             db.merge(um);
         }
         
         context.addCallbackParam("showFlag", flg);
     }
     
+    //***  ***//
+    public String passReminder() {
+        
+        this.u_pass = Util.getRandomString(5);
+        
+        return "reminder.xhtml?faces-redirect=true";
+    }
+    
+    
+    public void init(){
+        this.u_Id = "";
+        this.u_name = "";
+        this.u_mailaddr = "";
+        this.u_pass = "";
+        this.u_pass2 = "";
+        this.u_address = "";
+        this.u_mansion = "";
+        this.u_birth_day = "";
+        this.u_tel = "";
+        this.u_sex = "";
+    }
 }

@@ -6,38 +6,89 @@
 package beans;
 
 import ejb.UserDb;
+import ejb.ZipCodeDb;
 import entity.UserModel;
+import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
+import javax.validation.constraints.Pattern;
+import org.hibernate.validator.constraints.NotEmpty;
 
 /**
  *  アカウント編集に使用するUserBeanの代わり・照合用クラス
  * @author yuichi_develop
  */
 @Named(value = "editUserBean")
-@RequestScoped
-public class EditUserBean {
+@SessionScoped
+public class EditUserBean implements Serializable{
 
     private String nowName;
+    @NotEmpty(message = "空欄です")
     private String newName;
     private String nowMailAddr;
+    @Pattern(regexp = "^.*@.*\\..*$|^.*@.*\\..*\\..*$|^.*@.*\\..*\\..*\\..*$", message = "メールアドレスの形式が正しくありません")
     private String newMailAddr;
     private String nowTel;
     private String newTel;
     private String nowPassword;
+    @NotEmpty(message = "パスワード 未入力です！")
     private String newPassword;
     private String newPassword2;
     private String loginId;
     private String loginPass;
+    private String newPost;
+    private String newPre;
+    private String newAddress;
+    private String newMansion;
+
+    public String getNewPre() {
+        return newPre;
+    }
+
+    public void setNewPre(String newPre) {
+        this.newPre = newPre;
+    }
+
+    public String getNewAddress() {
+        return newAddress;
+    }
+
+    public void setNewAddress(String newAddress) {
+        this.newAddress = newAddress;
+    }
+
+    public String getNewMansion() {
+        return newMansion;
+    }
+
+    public void setNewMansion(String newMansion) {
+        this.newMansion = newMansion;
+    }
+    
+    
+
+    public String getNewPost() {
+        return newPost;
+    }
+
+    public void setNewPost(String newPost) {
+        this.newPost = newPost;
+    }
     
     @Inject
     UserBean userBean;
     
     @EJB
     UserDb userDb;
+    
+    @EJB
+    ZipCodeDb codeDb;
     /**
      * Creates a new instance of EditUserBean
      */
@@ -118,7 +169,14 @@ public class EditUserBean {
         if (um != null){
             um.setU_name(newName);
             userDb.merge(um);
+            
+            addMessage("名前の変更が完了しました");
+            userBean.setU_name(newName);
+            newName = "";
+            
+            return;
         }
+        addMessage("変更できませんでした");
     }
     
     //*** 新しいメールアドレスで当該ユーザ情報を更新するメソッド ***//
@@ -128,7 +186,14 @@ public class EditUserBean {
         if (um != null){
             um.setU_mailaddr(newMailAddr);
             userDb.merge(um);
+            
+            addMessage("メールアドレスの変更が完了しました");
+            userBean.setU_mailaddr(newMailAddr);
+            newMailAddr = "";
+            
+            return;
         }
+        addMessage("変更できませんでした");
     }
     
     //*** 新しい電話番号で当該ユーザ情報を更新するメソッド ***//
@@ -138,29 +203,100 @@ public class EditUserBean {
         if (um != null){
             um.setU_tel(newTel);
             userDb.merge(um);
+            
+            addMessage("電話番号の変更が完了しました");
+            userBean.setU_tel(newTel);
+            newTel = "";
+            
+            return;
         }
+        addMessage("変更できませんでした");
     }
     
     //*** 新しいパスワードで当該ユーザ情報を更新するメソッド ***//
     public void updatePassword() throws NoSuchAlgorithmException{
         System.out.println("beans.EditUserBean.updatePassword()");
+        System.out.println(newPassword);
         UserModel um = userDb.findUser(userBean.getU_Id());
         if (um != null){
             um.setU_pass(util.Util.returnSHA256(newPassword));
+            userDb.merge(um);
+            
+            addMessage("パスワードの変更が完了しました");
+            newPassword = "";
+            
+            return;
         }
+        addMessage("変更できませんでした");
     }
     
+    //***  ***//
+    public void updatePostAddr() {
+        System.out.println("beans.EditUserBean.updatePostAddr()");
+        
+        UserModel um = userDb.findUser(userBean.getU_Id());
+        if (um != null){
+            um.setU_post(newPost);
+            um.setU_address(newPre + newAddress + newMansion);
+            userDb.merge(um);
+            
+            userBean.setU_post(newPost);
+            userBean.setU_address(newPre + newAddress + newMansion);
+            addMessage("住所変更が完了しました");
+            newPost = "";
+            newPre = "";
+            newAddress = "";
+            newMansion = "";
+            
+            return ;
+        }
+        addMessage("変更できませんでした");
+    }
+    
+    //*** Ajax--郵便番号から住所を検索するメソッド ***//
+    public void ajaxSearchZipCode() {
+        System.out.println("beans.EditUserBean.ajaxSearchZipCode()");
+        System.out.println(newPost);
+
+        codeDb.searchZipInfo(newPost).forEach(d -> {
+            this.newPre = d.getPref();                                         // 県名セット
+            this.newAddress = d.getCity() + d.getStreet();        // 県名以降の住所をセット
+        });
+    }
     
     //*** 退会用メソッド ***//
-    public void unsubscribe(){
+    public String unsubscribe() throws NoSuchAlgorithmException{
         System.out.println("beans.EditUserBean.unsubscribe()");
-        UserModel um = userDb.loginCheck(loginId, loginPass);
-        if (um != null){
-            // 退会ー＞当該ユーザの削除を実施
-            userDb.unsubscribe(um);
+        System.out.println(nowMailAddr);
+        System.out.println(loginPass);
+        // 登録時のメールアドレス＋パスワードで本当に実在しているユーザか判定
+        try {
+            UserModel um = userDb.findUser(userBean.getU_Id(), nowMailAddr, loginPass);
+            if (um != null){
+                // 退会ー＞当該ユーザの削除を実
+                userDb.unsubscribe(um);
+
+                addMessage("退会処理が完了しました");
+                nowMailAddr = "";
+                loginPass = "";
+                return "index.xhtml?faces-redirect=true";
+            }
+        } catch (Exception e){
+            addMessageWorn("退会処理で\nエラーが発生しました");
+            addMessageWorn("入力された情報が\n正しくありません");
         }
+        return "";
     }
     
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public void addMessageWorn(String summary){
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
     
     
 }

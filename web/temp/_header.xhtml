@@ -72,7 +72,8 @@
                         <li class="header-nav__item">
                             <!--<a href="history.html" class="header-nav__link">-->
                             <h:form>
-                                <h:commandLink action="history.xhtml?faces-redirect=true" class="header-nav__link">
+                                <!--<h:commandLink action="history.xhtml?faces-redirect=true" class="header-nav__link">-->
+                                <h:commandLink action="#{userBean.popMyHistory()}" class="header-nav__link">
                                     <div class="nav-link__wrap">
                                         <span class="nav-icon fa fa-history"></span>
                                         <p><input type="button" class="nav-title nav-btn" value="注文履歴"/></p>
