@@ -54,6 +54,15 @@ public class UserDb {
         return em.createNamedQuery("User.findUser", UserModel.class).setParameter(1, loginId).getSingleResult();
     }
     
+    //***  ***//
+    public UserModel findUser(String userMailAddr, String loginPass) throws NoSuchAlgorithmException{
+        return em.createNamedQuery("User.unsubscribe", UserModel.class)
+                .setParameter(1, userMailAddr)
+                .setParameter(2, util.Util.returnSHA256(loginPass))
+                .getSingleResult();
+    }
+    
+    
     //*** 退会用削除メソッド ***//
     public void unsubscribe(UserModel um){
         UserModel model = em.find(UserModel.class, um.getU_id());
