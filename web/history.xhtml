@@ -18,27 +18,32 @@
                             <div class="his_contents-title">
                                 <h1>注文履歴</h1>
                             </div>
-                            <h:form class="form-inline">
-                                <div class="form-group">
-                                    <div class="his_search-period__box" >
-                                        <h:selectOneMenu value="#{userBean.searchPeriod}"
-                                                         class="his_search-period"
-                                                         style="height: 50px; width: 100px; font-size: 20px;">
-                                            <f:selectItem itemLabel="全件" itemValue="999" />
-                                            <f:selectItem itemLabel="3日" itemValue="3" />
-                                            <f:selectItem itemLabel="1週間" itemValue="7" />
-                                            <f:selectItem itemLabel="3週間" itemValue="21" />
-                                            <f:selectItem itemLabel="1か月" itemValue="30" />
-                                        </h:selectOneMenu>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <h:commandButton action="#{userBean.popHistoryPeriod()}"
-                                                     value="検索"
-                                                     class="btn btn-primary"/>
-                                </div>
-                            </h:form>
                         </div>
+                    </div>
+                    <div class="his_contents-header">
+                        <h:form class="form-inline">
+                            <div class="form-group">
+                                <span class="badge badge-default">期間</span>
+                            </div>
+                            <div class="form-group">
+                                <div class="his_search-period__box" >
+                                    <h:selectOneMenu value="#{userBean.searchPeriod}"
+                                                     class="his_search-period"
+                                                     style="height: 50px; width: 100px; font-size: 20px;">
+                                        <f:selectItem itemLabel="全件" itemValue="999" />
+                                        <f:selectItem itemLabel="3日" itemValue="3" />
+                                        <f:selectItem itemLabel="1週間" itemValue="7" />
+                                        <f:selectItem itemLabel="3週間" itemValue="21" />
+                                        <f:selectItem itemLabel="1か月" itemValue="30" />
+                                    </h:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <h:commandButton action="#{userBean.popHistoryPeriod()}"
+                                                 value="検索"
+                                                 class="btn btn-primary"/>
+                            </div>
+                        </h:form>
                         <div class="his_history-search__block">
                             <div class="his_history-search__item">
                                 <i class="his_fa fa-search"></i>
@@ -97,7 +102,7 @@
                                         <div class="his_pro-img__item">
                                             <h:form style="margin-bottom: 10px;">
                                                 <h:commandLink action="#" >
-                                                    <p:graphicImage value="#{productBean.pic1}" width="170" height="170">
+                                                    <p:graphicImage value="#{productBean.pic1}" width="100" height="100">
                                                         <f:param name="pic1" value="#{h.p_id}"/>
                                                     </p:graphicImage>
                                                 </h:commandLink>
