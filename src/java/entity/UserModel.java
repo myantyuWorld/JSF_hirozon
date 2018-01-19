@@ -20,7 +20,7 @@ import javax.persistence.Table;
 @Table(name = "m_user")
 @NamedQueries({
     //*** ログインチェック ***//
-    @NamedQuery(name = "User.loginCheck", query = "select u from UserModel u where u.u_Id = ?1 and u.u_pass = ?2"),
+    @NamedQuery(name = "User.loginCheck", query = "select u from UserModel u where u.u_Id = ?1 and u.u_pass = ?2 and u.userflg = 0"),
     //***  ***//
     @NamedQuery(name = "User.findUser", query = "select u from UserModel u where u.u_Id = ?1"),
     //*** 退会用ユーザ削除メソッド ***//
