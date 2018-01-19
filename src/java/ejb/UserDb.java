@@ -55,10 +55,11 @@ public class UserDb {
     }
     
     //***  ***//
-    public UserModel findUser(String userMailAddr, String loginPass) throws NoSuchAlgorithmException{
+    public UserModel findUser(String uId, String userMailAddr, String loginPass) throws NoSuchAlgorithmException{
         return em.createNamedQuery("User.unsubscribe", UserModel.class)
-                .setParameter(1, userMailAddr)
-                .setParameter(2, util.Util.returnSHA256(loginPass))
+                .setParameter(1, uId)
+                .setParameter(2, userMailAddr)
+                .setParameter(3, util.Util.returnSHA256(loginPass))
                 .getSingleResult();
     }
     

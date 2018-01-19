@@ -24,7 +24,7 @@ import javax.persistence.Table;
     //***  ***//
     @NamedQuery(name = "User.findUser", query = "select u from UserModel u where u.u_Id = ?1"),
     //*** 退会用ユーザ削除メソッド ***//
-    @NamedQuery(name = "User.unsubscribe", query = "select u from UserModel u where u.u_mailaddr = ?1 and u.u_pass = ?2"),
+    @NamedQuery(name = "User.unsubscribe", query = "select u from UserModel u where u.u_Id = ?1 and u.u_mailaddr = ?2 and u.u_pass = ?3"),
 })
 public class UserModel implements Serializable {
 
