@@ -54,10 +54,24 @@ public class UserDb {
         return em.createNamedQuery("User.findUser", UserModel.class).setParameter(1, loginId).getSingleResult();
     }
     
+    //***  ***//
+    public UserModel findUser(String uId, String userMailAddr, String loginPass) throws NoSuchAlgorithmException{
+        return em.createNamedQuery("User.unsubscribe", UserModel.class)
+                .setParameter(1, uId)
+                .setParameter(2, userMailAddr)
+                .setParameter(3, util.Util.returnSHA256(loginPass))
+                .getSingleResult();
+    }
+    
+    
     //*** 退会用削除メソッド ***//
     public void unsubscribe(UserModel um){
         UserModel model = em.find(UserModel.class, um.getU_id());
-        em.remove(model);
+//        em.remove(model);
+        // 実際に消すわけではなくて、フラグをupdateすることで退会とする
+        model.setUserflg(1);
+        
+        em.merge(model);
     }
 
     //*** 更新用メソッド ***//

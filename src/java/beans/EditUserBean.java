@@ -265,24 +265,36 @@ public class EditUserBean implements Serializable{
     }
     
     //*** 退会用メソッド ***//
-    public void unsubscribe(){
+    public String unsubscribe() throws NoSuchAlgorithmException{
         System.out.println("beans.EditUserBean.unsubscribe()");
-//        UserModel um = userDb.loginCheck(userBean.getU_Id(), loginPass);
-        UserModel um = userDb.findUser(userBean.getU_Id());
-        if (um != null){
-            // 退会ー＞当該ユーザの削除を実施
-            userDb.unsubscribe(um);
-            
-            addMessage("退会処理が完了しました");
-            nowMailAddr = "";
-            loginPass = "";
-            return;
+        System.out.println(nowMailAddr);
+        System.out.println(loginPass);
+        // 登録時のメールアドレス＋パスワードで本当に実在しているユーザか判定
+        try {
+            UserModel um = userDb.findUser(userBean.getU_Id(), nowMailAddr, loginPass);
+            if (um != null){
+                // 退会ー＞当該ユーザの削除を実
+                userDb.unsubscribe(um);
+
+                addMessage("退会処理が完了しました");
+                nowMailAddr = "";
+                loginPass = "";
+                return "index.xhtml?faces-redirect=true";
+            }
+        } catch (Exception e){
+            addMessageWorn("退会処理で\nエラーが発生しました");
+            addMessageWorn("入力された情報が\n正しくありません");
         }
-        addMessage("エラーが発生しました");
+        return "";
     }
     
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public void addMessageWorn(String summary){
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     

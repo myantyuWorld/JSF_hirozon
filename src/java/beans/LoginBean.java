@@ -13,6 +13,8 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import util.Util;
 
@@ -70,8 +72,10 @@ public class LoginBean extends SuperBean implements Serializable {
             ub.setU_tel(um.getU_tel());
             
             System.out.println(ub.toString());
+            addMessage(String.format("%sさん、ようこそ！", ub.getU_name()));
             return nextTopPage();   //  ログイン成功なので、トップページへ遷移する
         } else {
+            addMessage("ログインに失敗しました");
             return null;            //  失敗の場合は、ページそのまま
         }
     }
@@ -84,6 +88,11 @@ public class LoginBean extends SuperBean implements Serializable {
         this.pass = null;   //  nullを代入
         
         return nextIndexPage();
+    }
+    
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

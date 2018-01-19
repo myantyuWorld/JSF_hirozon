@@ -273,17 +273,29 @@
                                         </div>
                                         <div class="col-sm-offset-4 col-sm-5">
                                             <pt:growl id="growl" life="5000" />
-                                            <pt:commandButton value="退会" action="#{editUserBean.unsubscribe()}"
+                                            <pt:commandButton value="退会" 
+                                                              onclick="PF('dlgUnSub').show()"
                                                               class="btn btn-primary"
-                                                              ajax="true"
-                                                              update="growl"
-                                                              oncomplete="#{userBean.nextIndexPage()}"
                                                               />
                                         </div>
                                     </p>
                                 </h:form>
                             </div>
                         </div>
+                        <pt:dialog class="modal-title" header="警告!!!" widgetVar="dlgUnSub" modal="true" height="250">
+                            <div class="modal-dialog">
+                                <span class="badge badge-pill badge-danger">警告！！！</span>
+                                <div class="modal-header">
+                                    <h3 class="modal-title">本当に退会しますか？</h3>
+                                </div>
+                                <div class="modal-footer">
+                                    <h:form>
+                                        <h:commandButton class="btn" value="キャンセル" onclick="PF('dlgPass').hide();"/>
+                                        <h:commandButton class="btn btn-danger" value="  OK  " action="#{editUserBean.unsubscribe()}"/>
+                                    </h:form>
+                                </div>
+                            </div>
+                        </pt:dialog>
 
                     </div>
                 </div>
