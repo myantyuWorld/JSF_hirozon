@@ -40,6 +40,7 @@ public class UserModel implements Serializable {
     private String u_tel;			//*** 電話番号 ***//
     private String u_birth_day;		//*** 生年月日 ***//
     private String u_sex;			//*** 性別 ***//
+    private int userflg;                                            //*** 0(会員) 1(退会済み)  ***//
 
     //*** Constractor ***//
     public UserModel() {
@@ -111,6 +112,15 @@ public class UserModel implements Serializable {
     public void setU_sex(String u_sex) {
         this.u_sex = u_sex;
     }
+
+    public int getUserflg() {
+        return userflg;
+    }
+
+    public void setUserflg(int userflg) {
+        this.userflg = userflg;
+    }
+    
 
     @Override
     public String toString() {

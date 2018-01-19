@@ -265,7 +265,7 @@ public class EditUserBean implements Serializable{
     }
     
     //*** 退会用メソッド ***//
-    public void unsubscribe(){
+    public String unsubscribe(){
         System.out.println("beans.EditUserBean.unsubscribe()");
 //        UserModel um = userDb.loginCheck(userBean.getU_Id(), loginPass);
         UserModel um = userDb.findUser(userBean.getU_Id());
@@ -276,13 +276,16 @@ public class EditUserBean implements Serializable{
             addMessage("退会処理が完了しました");
             nowMailAddr = "";
             loginPass = "";
-            return;
+            return "index.xhtml?faces-redirect=true";
         }
         addMessage("エラーが発生しました");
+        
+        return "";
     }
     
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        System.out.println(FacesContext.getCurrentInstance().toString());
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     

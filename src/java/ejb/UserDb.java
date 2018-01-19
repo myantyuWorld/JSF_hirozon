@@ -57,7 +57,11 @@ public class UserDb {
     //*** 退会用削除メソッド ***//
     public void unsubscribe(UserModel um){
         UserModel model = em.find(UserModel.class, um.getU_id());
-        em.remove(model);
+//        em.remove(model);
+        // 実際に消すわけではなくて、フラグをupdateすることで退会とする
+        model.setUserflg(1);
+        
+        em.merge(model);
     }
 
     //*** 更新用メソッド ***//
