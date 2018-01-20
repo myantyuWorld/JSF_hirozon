@@ -81,17 +81,21 @@
                                 </h:commandLink>
                             </h:form>
                         </li>
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
+                        <!--CartCounter-->
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <li class="header-nav__item">
-                            <!--<a href="cart.html" class="header-nav__link">-->
                             <h:form>
                                 <h:commandLink action="cart.xhtml?faces-redirect=true" class="header-nav__link">
-                                    <div class="nav-link__wrap">
-                                        <span class="nav-icon fa fa-shopping-cart"></span>
+                                    <div class="nav-link__wrap" >
+                                        <span class="nav-icon fa fa-shopping-cart" style="color: #ccc"></span>
                                         <p><input type="button" class="nav-title nav-btn" value="カート"/></p>
                                     </div>
+                                    <span  class="cart-items-count"><span class=" notification-counter"><h:outputLabel value="#{userBean.myCart.size()}"/></span></span>
                                 </h:commandLink>
                             </h:form>
                         </li>
+                        <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
                         <li class="header-nav__item">
                             <div class="header-nav__link">
                                 <div class="nav-link__wrap">
@@ -105,20 +109,21 @@
                     </ul>
                 </div>
             </div>
-            
-            
+
+
+
             <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
             <!--Welcome userName-->
             <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
             <div style="border-bottom: 1px solid #ccc; margin: 0 20px 10px 20px ;"></div>
             <div style="font-size: 20px; margin: 10px; padding-left: 30px; color: #ccc; border-right: 1px solid #ccc; width: 30%">
                 <h:form class="form-inline">
-                <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:20px;"></span>
-                <h:commandLink action="#{userBean.nextMyPage()}" value="こんにちは、#{userBean.u_name}さん" style="font-size: 20px;  color: #ccc"/>
+                    <span class="glyphicon glyphicon-user" aria-hidden="true" style="font-size:20px;"></span>
+                    <h:commandLink action="#{userBean.nextMyPage()}" value="こんにちは、#{userBean.u_name}さん" style="font-size: 20px;  color: #ccc"/>
                 </h:form>
             </div>
             <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
-            
+
         </header>
         <!--logout dialog-->
         <pt:dialog class="modal-title" header="確認" widgetVar="dlgLogout" modal="true" height="250">
