@@ -75,86 +75,93 @@
                     <!--_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/-->
 
 
-                    <p:dataTable id="dt" var="h" value="#{userBean.list}" sortMode="multiple" 
-                                 paginator="true" rows="5">
-                        <!-- ***1*** 繰り返し項目 -->
-                        <p:column>
+                    <div style="margin-bottom: 30px; padding-bottom: 20px;">
+                        <p:dataTable id="dt" 
+                                     var="h" 
+                                     value="#{userBean.list}" 
+                                     sortMode="multiple" 
+                                     paginator="true" 
+                                     rows="5"
+                                     >
+                            <!-- ***1*** 繰り返し項目 -->
+                            <p:column>
 
-                            <div class="his_contents-box">
-                                <div class="his_box-header">
-                                    <div class="his_header-item__l">
-                                        <div class="his_header-item__list">
-                                            <div class="his_">
-                                                注文日：
+                                <div class="his_contents-box">
+                                    <div class="his_box-header">
+                                        <div class="his_header-item__l">
+                                            <div class="his_header-item__list">
+                                                <div class="his_">
+                                                    注文日：
+                                                </div>
+                                                <div class="his_">
+                                                    <h:outputLabel value="#{h.datetime}"/>
+                                                </div>
                                             </div>
-                                            <div class="his_">
-                                                <h:outputLabel value="#{h.datetime}"/>
+                                            <div class="his_header-item__list">
+                                                <div class="his_">
+                                                    合計金額：
+                                                </div>
+                                                <div class="his_ price">
+                                                    <h:outputLabel value="#{productBean.convertJapanPrice(h.count * h.p_price)}"/>
+                                                </div>
+                                            </div>
+                                            <div class="his_header-item__list">
+                                                <div class="his_">
+                                                    お届け先：
+                                                </div>
+                                                <div class="his_">
+                                                    <h:outputLabel value="#{h.u_address}"/>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="his_header-item__list">
-                                            <div class="his_">
-                                                合計金額：
-                                            </div>
-                                            <div class="his_ price">
-                                                <h:outputLabel value="#{productBean.convertJapanPrice(h.count * h.p_price)}"/>
-                                            </div>
-                                        </div>
-                                        <div class="his_header-item__list">
-                                            <div class="his_">
-                                                お届け先：
-                                            </div>
-                                            <div class="his_">
-                                                <h:outputLabel value="#{h.u_address}"/>
+                                        <div class="his_header-item__r">
+                                            <div class="his_header-item__list">
+                                                <div class="his_">
+                                                    注文番号：
+                                                </div>
+                                                <div class="his_">
+                                                    <h:outputLabel value="#{h.buy_id}"/>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="his_header-item__r">
-                                        <div class="his_header-item__list">
-                                            <div class="his_">
-                                                注文番号：
+                                    <div class="his_box-detail">
+                                        <div class="his_detail-wrap">
+                                            <div class="his_detail-item his_pro-img__box">
+                                                <div class="his_pro-img__item">
+                                                    <h:form style="margin-bottom: 10px;">
+                                                        <h:commandLink action="#" >
+                                                            <p:graphicImage value="#{productBean.pic1}" width="100" height="100">
+                                                                <f:param name="pic1" value="#{h.p_id}"/>
+                                                            </p:graphicImage>
+                                                        </h:commandLink>
+                                                    </h:form>
+                                                </div>
                                             </div>
-                                            <div class="his_">
-                                                <h:outputLabel value="#{h.buy_id}"/>
+                                            <div class="his_detail-item his_pro-name__box">
+                                                <div class="his_pro-name__item">
+                                                    <h:outputLabel value="#{h.p_name}"/>
+                                                </div>
+                                            </div>
+                                            <div class="his_detail-item his_pro-value__box">
+                                                <div class="his_pro-value his_pro-value__item price">
+                                                    <h:outputLabel value="#{productBean.convertJapanPrice(h.p_price)}"/>
+                                                </div>
+                                            </div>
+                                            <div class="his_detail-item purchase-btn__box">
+                                                <div class="his_purchase-btn__wrap">
+                                                    <form method="post" action="/JSF_HIROZON/faces/user_history.xhtml" enctype="application/x-www-form-urlencoded">
+                                                        <input class="his_purchase-btn" type="submit" name="j_idt38:1:j_idt66:j_idt67" value="再度購入" />
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="his_box-detail">
-                                    <div class="his_detail-wrap">
-                                        <div class="his_detail-item his_pro-img__box">
-                                            <div class="his_pro-img__item">
-                                                <h:form style="margin-bottom: 10px;">
-                                                    <h:commandLink action="#" >
-                                                        <p:graphicImage value="#{productBean.pic1}" width="100" height="100">
-                                                            <f:param name="pic1" value="#{h.p_id}"/>
-                                                        </p:graphicImage>
-                                                    </h:commandLink>
-                                                </h:form>
-                                            </div>
-                                        </div>
-                                        <div class="his_detail-item his_pro-name__box">
-                                            <div class="his_pro-name__item">
-                                                <h:outputLabel value="#{h.p_name}"/>
-                                            </div>
-                                        </div>
-                                        <div class="his_detail-item his_pro-value__box">
-                                            <div class="his_pro-value his_pro-value__item price">
-                                                <h:outputLabel value="#{productBean.convertJapanPrice(h.p_price)}"/>
-                                            </div>
-                                        </div>
-                                        <div class="his_detail-item purchase-btn__box">
-                                            <div class="his_purchase-btn__wrap">
-                                                <form method="post" action="/JSF_HIROZON/faces/user_history.xhtml" enctype="application/x-www-form-urlencoded">
-                                                    <input class="his_purchase-btn" type="submit" name="j_idt38:1:j_idt66:j_idt67" value="再度購入" />
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </p:column>
-                        <!-- ***1*** 繰り返し項目 end -->
-                    </p:dataTable>
+                            </p:column>
+                            <!-- ***1*** 繰り返し項目 end -->
+                        </p:dataTable>
+                    </div>
                 </div>
             </ui:define>
         </ui:composition>
