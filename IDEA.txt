@@ -1,0 +1,9 @@
+ログイン後に、トップページにこんにちはXXさん を表示　welcome
+	
+アカウント編集ページへ遷移する前に再度ログイン認証させる	editAuth
+	
+過去X に確定されたX件の注文					history
+
+カート X個と表示できないか・・・				cartCount
+
+注文履歴のページネーション					historyPagiantion
