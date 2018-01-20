@@ -15,7 +15,7 @@
                 <div class="top_main-wrap">
                     <div class="top_main">
                         <div class="top_main-contents">
-                            <h3 class="top_main-contents__title">食料品</h3>
+                            <h3 class="top_main-contents__title">食料品のおすすめ商品</h3>
                             <div class="top_main-contents__wrap top_top-wrap">
                                 <div href="#" class="top_main-contents__wrap-item">
                                     <table class="top_item-table">
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                         <div class="top_main-contents">
-                            <h3 class="top_main-contents__title">薬</h3>
+                            <h3 class="top_main-contents__title">薬のおすすめ商品</h3>
                             <div class="top_main-contents__wrap top_top-wrap">
                                 <!-- itemはひとまず最大5個表示することとする：DB必要 -->
                                 <!-- カテゴリ３，４つ分出す予定：DB必要 -->
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                         <div class="top_main-contents">
-                            <h3 class="top_main-contents__title">本</h3>
+                            <h3 class="top_main-contents__title">本のおすすめ商品</h3>
                             <div class="top_main-contents__wrap top_top-wrap">
                                 <div href="#" class="top_main-contents__wrap-item">
                                     <table class="top_item-table">
@@ -131,19 +131,19 @@
                                         <td class="top_item-table__td">
                                             <h:form style="margin-bottom: 10px;">
                                                 <h:commandLink action="#{productBean.nextProductDetail(p.p_id)}" >
-                                                    <p:graphicImage value="#{productBean.pic1}" width="170" height="170">
+                                                    <p:graphicImage value="#{productBean.pic1}" width="130" height="130">
                                                         <f:param name="pic1" value="#{p.p_id}"/>
                                                     </p:graphicImage>
                                                 </h:commandLink>
                                             </h:form>
-                                            <div class="top_">
+<!--                                            <div class="top_">
                                                 <h:form>
                                                     <h:commandLink value="#{p.p_name}" action="#{productBean.nextProductDetail(p.p_id)}"/>
                                                 </h:form>
                                             </div>
                                             <div class="top_ price">
                                                 <h:outputLabel value="#{productBean.convertJapanPrice(p.p_price)}"/>
-                                            </div>
+                                            </div>-->
                                         </td>
                                     </tr>
                                 </ui:repeat>
