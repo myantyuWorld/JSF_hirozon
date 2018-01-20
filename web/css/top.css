@@ -120,7 +120,7 @@
 
 .top_ranking-table {
   border-collapse: separate;
-  border-spacing: 50px;
+  border-spacing: 0;
 }
 
 .top_ranking-td {
